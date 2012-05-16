@@ -134,6 +134,84 @@ public class Percurso {
 		return caminho;
 	}
 
+	public static LinkedList<Esquina> buscaProfundidadeIterativa(Esquina origem, Esquina destino, Cidade cidade) {
+		LinkedList<Esquina> caminho;
+		if (origem == destino) {
+			caminho = new LinkedList<>();
+			caminho.add(origem);
+			return caminho;
+		}
+		Tabela[] table = new Tabela[cidade.getEsquinas().size()];
+		LinkedList<LinkedList<Esquina>> expansao = new LinkedList();
+		int limite = 1;
+		int limitantelimite = 5;
+		int atual = 0;
+		//aloca lista de vertices na tabela hash
+		for (int i = 0; i < table.length; i++) {
+			table[i] = new Tabela(cidade.getEsquinas().get(i));
+		}
+		int idDestino;
+		Esquina temp;
+		boolean acaba = false;
+
+		origem.setVisitado(true);
+		expansao.add(new LinkedList());
+		expansao.add(new LinkedList());
+		LinkedList<Esquina> aux;
+		while (!acaba) {
+			while (atual <= limite) {
+				if (expansao.get(atual).size() != 0) {
+					temp = expansao.get(atual).getFirst();
+					temp.setVisitado(true);
+				} else {
+					atual--;
+					continue;
+				}
+				if (temp == destino) {
+					acaba = true;
+					break;
+				}
+				if (atual < limite) {
+					for (Rua rua : temp.getRuas()) {
+						if (!rua.getDestino().isVisitado()) {
+							table[cidade.getEsquinas().indexOf(rua.getDestino())].setCaminho(temp);
+							expansao.get(atual + 1).add(rua.getDestino());
+						}
+					}
+					atual++;
+				}
+			}
+			if (acaba) {
+				break;
+			}
+
+			limite++;
+			if (limite > limitantelimite) {
+				break;
+			}
+			atual = 0;
+			expansao.add(new LinkedList());
+			cidade.setEsquinasNotVisited();
+		}
+
+		cidade.setEsquinasNotVisited();
+
+		caminho = new LinkedList<>();
+		int id = cidade.getEsquinas().indexOf(destino);
+		caminho.add(destino);
+		if (table[id].getCaminho() == null) {
+			System.out.println("Nao existe caminho");
+			return caminho;
+		}
+		while (table[id].getCaminho() != null) {
+			temp = table[id].getCaminho();
+			caminho.add(temp);
+			id = cidade.getEsquinas().indexOf(temp);
+		}
+		caminho.add(origem);
+		return caminho;
+	}
+
 	public static LinkedList<Esquina> dijkstra(Esquina origem, Esquina destino, Cidade cidade) {
 		//tabela hash (1:1) com tanho igual ao numero de de verices 
 		Tabela[] table = new Tabela[cidade.getEsquinas().size()];
