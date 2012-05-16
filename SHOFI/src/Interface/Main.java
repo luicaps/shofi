@@ -40,6 +40,8 @@ public class Main extends javax.swing.JFrame {
 
 		initComponents();
 		jpPercurso.setVisible(false);
+		jlRestricoes.setVisible(false);
+		jcbEvitarSemaforos.setVisible(false);
 	}
 
 	public void showPropriedades(Esquina e) {
@@ -47,10 +49,12 @@ public class Main extends javax.swing.JFrame {
 			jtfPosicaoX.setText(Integer.toString(e.getX()));
 			jtfPosicaoY.setText(Integer.toString(e.getY()));
 			jtfNome.setText(e.getNome());
+			jcbSemaforo.setSelected(e.haveSemaforo());
 		} else {
 			jtfPosicaoX.setText("");
 			jtfPosicaoY.setText("");
 			jtfNome.setText("");
+			jcbSemaforo.setSelected(false);
 		}
 	}
 
@@ -63,6 +67,7 @@ public class Main extends javax.swing.JFrame {
 				e.setY(Integer.parseInt(jtfPosicaoY.getText()));
 			}
 			e.setNome(jtfNome.getText());
+			e.setSemaforo(jcbSemaforo.isSelected());
 			jpDraw.paintComponent(jpDraw.getGraphics());
 		}
 	}
@@ -118,6 +123,8 @@ public class Main extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jCheckBox2 = new javax.swing.JCheckBox();
         jLabel9 = new javax.swing.JLabel();
+        jlRestricoes = new javax.swing.JLabel();
+        jcbEvitarSemaforos = new javax.swing.JCheckBox();
         jpPropriedades = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -131,6 +138,7 @@ public class Main extends javax.swing.JFrame {
         jCheckBox1 = new javax.swing.JCheckBox();
         jbMenorDistancia = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jcbSemaforo = new javax.swing.JCheckBox();
         jScrollPane = new javax.swing.JScrollPane();
         jpDraw = new Interface.Draw();
         jMenuBar2 = new javax.swing.JMenuBar();
@@ -158,7 +166,12 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jcbAlgoritmo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Amplitude", "Profundidade", "Profundidade iterativa", "Bidirecional", "Dijkstra", "A*" }));
+        jcbAlgoritmo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Amplitude", "Profundidade", "Profundidade iterativa", "Bidirecional", "Dijkstra", "A*" }));
+        jcbAlgoritmo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbAlgoritmoItemStateChanged(evt);
+            }
+        });
 
         jLabel2.setText("Algoritmo:");
 
@@ -183,6 +196,10 @@ public class Main extends javax.swing.JFrame {
 
         jLabel9.setText("Animação:");
 
+        jlRestricoes.setText("Restrições:");
+
+        jcbEvitarSemaforos.setText("Evitar Semaforos");
+
         javax.swing.GroupLayout jpPercursoLayout = new javax.swing.GroupLayout(jpPercurso);
         jpPercurso.setLayout(jpPercursoLayout);
         jpPercursoLayout.setHorizontalGroup(
@@ -190,6 +207,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jpPercursoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpPercursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jcbEvitarSemaforos)
                     .addComponent(jCheckBox2)
                     .addComponent(jcbAlgoritmo, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
@@ -197,7 +215,8 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(jbEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabel9)
+                    .addComponent(jlRestricoes))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpPercursoLayout.setVerticalGroup(
@@ -216,9 +235,13 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox2)
-                .addGap(90, 90, 90)
+                .addGap(18, 18, 18)
+                .addComponent(jlRestricoes)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jcbEvitarSemaforos)
+                .addGap(33, 33, 33)
                 .addComponent(jbEditar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jpPropriedades.setAlignmentX(0.0F);
@@ -286,6 +309,13 @@ public class Main extends javax.swing.JFrame {
 
         jButton1.setText("Remover rua");
 
+        jcbSemaforo.setText("Semaforo");
+        jcbSemaforo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbSemaforoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpPropriedadesLayout = new javax.swing.GroupLayout(jpPropriedades);
         jpPropriedades.setLayout(jpPropriedadesLayout);
         jpPropriedadesLayout.setHorizontalGroup(
@@ -311,6 +341,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jcRuas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jpPropriedadesLayout.createSequentialGroup()
                         .addGroup(jpPropriedadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jcbSemaforo)
                             .addComponent(jLabel5)
                             .addComponent(jCheckBox1)
                             .addComponent(jLabel1)
@@ -334,9 +365,11 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(jpPropriedadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jtfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jcbSemaforo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addComponent(jCheckBox1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jcRuas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -346,12 +379,13 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jbMenorDistancia))
         );
 
+        jpDraw.setPreferredSize(new java.awt.Dimension(500, 500));
         jpDraw.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jpDrawMouseReleased(evt);
-            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jpDrawMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jpDrawMouseReleased(evt);
             }
         });
         jpDraw.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -436,7 +470,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jpPropriedades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jpPercurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane))
+                .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jpPercurso, jpPropriedades});
@@ -492,15 +526,28 @@ public class Main extends javax.swing.JFrame {
 					}
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Amplitude")) {
 						System.out.println("fazendo busca atravez do algoritmo Amplitude");
+						if (jcbEvitarSemaforos.isSelected()) {
+							jpDraw.getCidade().setSemaforoVisited();
+						}
 						jpDraw.setCaminho(Percurso.buscaAmplitude(jpDraw.getSelected2(), jpDraw.getSelected(), jpDraw.getCidade()));
 					}
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Profundidade")) {
 						System.out.println("fazendo busca atravez do algoritmo Profundidade");
+						if (jcbEvitarSemaforos.isSelected()) {
+							jpDraw.getCidade().setSemaforoVisited();
+						}
 						jpDraw.setCaminho(Percurso.buscaProfundidade(jpDraw.getSelected2(), jpDraw.getSelected(), jpDraw.getCidade()));
 					}
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Profundidade iterativa")) {
 						System.out.println("fazendo busca atravez do algoritmo Profundidade iterativa");
 						jpDraw.setCaminho(Percurso.buscaProfundidadeIterativa(jpDraw.getSelected2(), jpDraw.getSelected(), jpDraw.getCidade()));
+					}
+					if (!jcbAlgoritmo.getSelectedItem().toString().equals("Selecione")) {
+						if (jpDraw.getCaminho() == null) {
+							jpDraw.setStatusText("Não foi possível encontrar um caminho");
+						} else {
+							jpDraw.setStatusText("");
+						}
 					}
 				}
 			}
@@ -535,15 +582,28 @@ public class Main extends javax.swing.JFrame {
 					}
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Amplitude")) {
 						System.out.println("fazendo busca atravez do algoritmo Amplitude");
+						if (jcbEvitarSemaforos.isSelected()) {
+							jpDraw.getCidade().setSemaforoVisited();
+						}
 						jpDraw.setCaminho(Percurso.buscaAmplitude(jpDraw.getSelected2(), jpDraw.getSelected(), jpDraw.getCidade()));
 					}
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Profundidade")) {
 						System.out.println("fazendo busca atravez do algoritmo Profundidade");
+						if (jcbEvitarSemaforos.isSelected()) {
+							jpDraw.getCidade().setSemaforoVisited();
+						}
 						jpDraw.setCaminho(Percurso.buscaProfundidade(jpDraw.getSelected2(), jpDraw.getSelected(), jpDraw.getCidade()));
 					}
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Profundidade iterativa")) {
 						System.out.println("fazendo busca atravez do algoritmo Profundidade iterativa");
 						jpDraw.setCaminho(Percurso.buscaProfundidadeIterativa(jpDraw.getSelected2(), jpDraw.getSelected(), jpDraw.getCidade()));
+					}
+					if (!jcbAlgoritmo.getSelectedItem().toString().equals("Selecione")) {
+						if (jpDraw.getCaminho() == null) {
+							jpDraw.setStatusText("Não foi possível encontrar um caminho");
+						} else {
+							jpDraw.setStatusText("");
+						}
 					}
 				}
 			}
@@ -721,6 +781,22 @@ public class Main extends javax.swing.JFrame {
 	private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
 		jpDraw.switchAnimar();
 	}//GEN-LAST:event_jCheckBox2ActionPerformed
+
+	private void jcbAlgoritmoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbAlgoritmoItemStateChanged
+		if (jcbAlgoritmo.getSelectedItem().toString().equals("Profundidade")
+				|| jcbAlgoritmo.getSelectedItem().toString().equals("Amplitude")) {
+			jlRestricoes.setVisible(true);
+			jcbEvitarSemaforos.setVisible(true);
+		} else {
+			jlRestricoes.setVisible(false);
+			jcbEvitarSemaforos.setVisible(false);
+			jcbEvitarSemaforos.setSelected(false);
+		}
+	}//GEN-LAST:event_jcbAlgoritmoItemStateChanged
+
+	private void jcbSemaforoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSemaforoActionPerformed
+		setPropriedades(jpDraw.getSelected());
+	}//GEN-LAST:event_jcbSemaforoActionPerformed
 	/**
 	 * @param args the command line arguments
 	 */
@@ -760,6 +836,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton jbProcurar;
     private javax.swing.JComboBox jcRuas;
     private javax.swing.JComboBox jcbAlgoritmo;
+    private javax.swing.JCheckBox jcbEvitarSemaforos;
+    private javax.swing.JCheckBox jcbSemaforo;
+    private javax.swing.JLabel jlRestricoes;
     private javax.swing.JMenuItem jmAbrirImagem;
     private javax.swing.JMenuItem jmAbrirMapa;
     private javax.swing.JMenu jmFile;
