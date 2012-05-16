@@ -93,7 +93,6 @@ public class Cidade implements Serializable {
 			origem.addRua(destino);
 			destino.addRua(origem);
 		}
-
 	}
 
 	public LinkedList<Esquina> getListaEsquinas() {
