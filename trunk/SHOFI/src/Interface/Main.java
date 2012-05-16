@@ -158,7 +158,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jcbAlgoritmo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Amplitude", "Profundidade", "Bidirecional", "Dijkstra", "A*" }));
+        jcbAlgoritmo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Amplitude", "Profundidade", "Profundidade iterativa", "Bidirecional", "Dijkstra", "A*" }));
 
         jLabel2.setText("Algoritmo:");
 
@@ -458,7 +458,7 @@ public class Main extends javax.swing.JFrame {
 			if (jpDraw.getSelected() != null) {
 				Esquina e = new Esquina(evt.getPoint().x, evt.getPoint().y);
 				jpDraw.move(e);
-				showPropriedades(e);
+				showPropriedades(jpDraw.getSelected());
 			}
 		}
 	}//GEN-LAST:event_jpDrawMouseDragged
@@ -497,6 +497,10 @@ public class Main extends javax.swing.JFrame {
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Profundidade")) {
 						System.out.println("fazendo busca atravez do algoritmo Profundidade");
 						jpDraw.setCaminho(Percurso.buscaProfundidade(jpDraw.getSelected2(), jpDraw.getSelected(), jpDraw.getCidade()));
+					}
+					if (jcbAlgoritmo.getSelectedItem().toString().equals("Profundidade iterativa")) {
+						System.out.println("fazendo busca atravez do algoritmo Profundidade iterativa");
+						jpDraw.setCaminho(Percurso.buscaProfundidadeIterativa(jpDraw.getSelected2(), jpDraw.getSelected(), jpDraw.getCidade()));
 					}
 				}
 			}
@@ -537,6 +541,10 @@ public class Main extends javax.swing.JFrame {
 						System.out.println("fazendo busca atravez do algoritmo Profundidade");
 						jpDraw.setCaminho(Percurso.buscaProfundidade(jpDraw.getSelected2(), jpDraw.getSelected(), jpDraw.getCidade()));
 					}
+					if (jcbAlgoritmo.getSelectedItem().toString().equals("Profundidade iterativa")) {
+						System.out.println("fazendo busca atravez do algoritmo Profundidade iterativa");
+						jpDraw.setCaminho(Percurso.buscaProfundidadeIterativa(jpDraw.getSelected2(), jpDraw.getSelected(), jpDraw.getCidade()));
+					}
 				}
 			}
 		}
@@ -550,8 +558,8 @@ public class Main extends javax.swing.JFrame {
 			if (evt.getButton() == MouseEvent.BUTTON1) {
 				if (jpDraw.isEditar()) {
 					Esquina e = new Esquina(evt.getPoint().x, evt.getPoint().y);
-					e.setNome(Integer.toString(serialName));
 					serialName++;
+					e.setNome(Integer.toString(serialName));
 					jpDraw.addNaLista(e);
 					showPropriedades(e);
 //					jpDraw.paintComponent(jpDraw.getGraphics());

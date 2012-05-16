@@ -157,7 +157,7 @@ public class Percurso {
 		origem.setVisitado(true);
 		expansao.add(new LinkedList());
 		expansao.add(new LinkedList());
-		LinkedList<Esquina> aux;
+		expansao.get(atual).add(origem);
 		while (!acaba) {
 			while (atual <= limite) {
 				if (expansao.get(atual).size() != 0) {

@@ -73,7 +73,7 @@ public class Draw extends JPanel {
 					int i = caminho.indexOf(esquina);
 					if (animar) {
 						try {
-							Thread.sleep(300);
+							Thread.sleep(250);
 						} catch (InterruptedException ex) {
 							Logger.getLogger(Draw.class.getName()).log(Level.SEVERE, null, ex);
 						}
@@ -98,6 +98,7 @@ public class Draw extends JPanel {
 				setSelected(e);
 			}
 		} else {
+			E.setNome(e.getNome());
 			if (selected != null) {
 				cidade.add(selected, E, maoDupla);
 			}
