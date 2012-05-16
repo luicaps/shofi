@@ -123,7 +123,7 @@ public class Percurso {
 		caminho.add(destino);
 		if (table[id].getCaminho() == null) {
 			System.out.println("Nao existe caminho");
-			return caminho;
+			return null;
 		}
 		while (table[id].getCaminho() != null) {
 			temp = table[id].getCaminho();
@@ -142,34 +142,40 @@ public class Percurso {
 			return caminho;
 		}
 		Tabela[] table = new Tabela[cidade.getEsquinas().size()];
-		LinkedList<LinkedList<Esquina>> expansao = new LinkedList();
 		int limite = 1;
 		int limitantelimite = 5;
 		int atual = 0;
 		//aloca lista de vertices na tabela hash
-		for (int i = 0; i < table.length; i++) {
-			table[i] = new Tabela(cidade.getEsquinas().get(i));
-		}
-		int idDestino;
 		Esquina temp;
 		boolean acaba = false;
 
 		origem.setVisitado(true);
-		expansao.add(new LinkedList());
-		expansao.add(new LinkedList());
-		expansao.get(atual).add(origem);
+
+		LinkedList<LinkedList<Esquina>> expansao;
 		while (!acaba) {
+			table = new Tabela[cidade.getEsquinas().size()];
+			for (int i = 0; i < table.length; i++) {
+				table[i] = new Tabela(cidade.getEsquinas().get(i));
+			}
+			expansao = new LinkedList();
+			for (int i = 0; i <= limite; i++) {
+				expansao.add(new LinkedList());
+			}
+			expansao.get(0).add(origem);
 			while (atual <= limite) {
+				if (atual < 0) {
+					break;
+				}
 				if (expansao.get(atual).size() != 0) {
-					temp = expansao.get(atual).getFirst();
+					temp = expansao.get(atual).removeFirst();
 					temp.setVisitado(true);
+					if (temp == destino) {
+						acaba = true;
+						break;
+					}
 				} else {
 					atual--;
 					continue;
-				}
-				if (temp == destino) {
-					acaba = true;
-					break;
 				}
 				if (atual < limite) {
 					for (Rua rua : temp.getRuas()) {
@@ -190,7 +196,6 @@ public class Percurso {
 				break;
 			}
 			atual = 0;
-			expansao.add(new LinkedList());
 			cidade.setEsquinasNotVisited();
 		}
 
@@ -201,7 +206,7 @@ public class Percurso {
 		caminho.add(destino);
 		if (table[id].getCaminho() == null) {
 			System.out.println("Nao existe caminho");
-			return caminho;
+			return null;
 		}
 		while (table[id].getCaminho() != null) {
 			temp = table[id].getCaminho();
@@ -271,7 +276,7 @@ public class Percurso {
 		caminho.add(destino);
 		if (table[idAtual].getCaminho() == null) {
 			System.out.println("Nao existe caminho");
-			return caminho;
+			return null;
 		}
 		while (table[idAtual].getCaminho() != null) {
 			atual = table[idAtual].getCaminho();
@@ -394,7 +399,7 @@ public class Percurso {
 		int id = cidade.getEsquinas().indexOf(intercessao);
 		if (intercessao == null) {
 			System.out.println("Nao existe caminho (intercessao == null)");
-			return caminho;
+			return null;
 		}
 		caminho.add(intercessao);
 		if (intercessao != destino) {
@@ -494,7 +499,7 @@ public class Percurso {
 		caminho.add(destino);
 		if (table[idAtual].getCaminho() == null) {
 			System.out.println("Nao existe caminho");
-			return caminho;
+			return null;
 		}
 		while (table[idAtual].getCaminho() != null) {
 			atual = table[idAtual].getCaminho();

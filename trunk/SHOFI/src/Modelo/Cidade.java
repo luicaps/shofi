@@ -116,4 +116,12 @@ public class Cidade implements Serializable {
 			esquina.setVisitado(false);
 		}
 	}
+
+	public void setSemaforoVisited() {
+		for (Esquina esquina : esquinas) {
+			if (esquina.haveSemaforo()) {
+				esquina.setVisitado(true);
+			}
+		}
+	}
 }

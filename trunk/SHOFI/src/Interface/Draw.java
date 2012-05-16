@@ -22,6 +22,7 @@ public class Draw extends JPanel {
 	boolean maoDupla = true;
 	boolean editar = true;
 	boolean animar = true; //abilita passo a passo do desenho do caminho
+	String statusText = "";
 
 	//funcao responsavel por pintar as esquinas e ruas
 	@Override
@@ -84,6 +85,8 @@ public class Draw extends JPanel {
 				}
 			}
 		}
+		g.setColor(Color.red);
+		g.drawString(statusText, 10, 12);
 	}
 
 	//adiciona pontos na lista enquanto uma face nao estiver pronta
@@ -200,5 +203,9 @@ public class Draw extends JPanel {
 		} else {
 			animar = true;
 		}
+	}
+
+	void setStatusText(String texto) {
+		statusText = texto;
 	}
 }
