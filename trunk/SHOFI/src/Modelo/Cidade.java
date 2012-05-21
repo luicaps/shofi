@@ -1,7 +1,3 @@
- /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Modelo;
 
 import java.io.Serializable;
@@ -9,11 +5,11 @@ import java.util.LinkedList;
 
 /**
  *
- * @author Span
+ * @author Spanhol e da Silva
  */
 public class Cidade implements Serializable {
 
-	LinkedList<Esquina> esquinas;
+	private LinkedList<Esquina> esquinas;
 
 	public Cidade() {
 		this.esquinas = new LinkedList<>();
@@ -45,6 +41,15 @@ public class Cidade implements Serializable {
 				if (esquina.getY() == y) {
 					return esquina;
 				}
+			}
+		}
+		return null;
+	}
+
+	public Esquina getEsquina(String nome) {
+		for (Esquina esquina : esquinas) {
+			if (esquina.getNome().equals(nome)) {
+				return esquina;
 			}
 		}
 		return null;

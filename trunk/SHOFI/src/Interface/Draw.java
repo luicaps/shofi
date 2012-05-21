@@ -38,17 +38,19 @@ public class Draw extends JPanel {
 				g.fillRect(esquina.getX() - 3, esquina.getY() - 3, 6, 6);
 				for (Rua rua : esquina.getRuas()) {
 					g.drawLine(esquina.getX(), esquina.getY(), rua.getDestino().getX(), rua.getDestino().getY());
-					int ratex = (rua.getDestino().getX() - esquina.getX()) / 4;
-					int ratey = (rua.getDestino().getY() - esquina.getY()) / 4;
-					ratex = ratex + esquina.getX();
-					ratey = ratey + esquina.getY();
-					if (esquina.getX() == rua.getDestino().getX()) {
-						ratex = ratex + 5;
-					}
-					if (esquina.getX() >= rua.getDestino().getX()) {
-						g.drawString("<=", ratex, ratey);
-					} else {
-						g.drawString("=>", ratex, ratey);
+					if (editar) {
+						int ratex = (rua.getDestino().getX() - esquina.getX()) / 4;
+						int ratey = (rua.getDestino().getY() - esquina.getY()) / 4;
+						ratex = ratex + esquina.getX();
+						ratey = ratey + esquina.getY();
+						if (esquina.getX() == rua.getDestino().getX()) {
+							ratex = ratex + 5;
+						}
+						if (esquina.getX() >= rua.getDestino().getX()) {
+							g.drawString("<=", ratex, ratey);
+						} else {
+							g.drawString("=>", ratex, ratey);
+						}
 					}
 				}
 			}
@@ -57,14 +59,31 @@ public class Draw extends JPanel {
 		if (selected != null) {
 			g.setColor(Color.black);
 			g.fillRect(selected.getX() - 5, selected.getY() - 5, 10, 10);
-			g.setColor(Color.white);
+			g.setColor(Color.orange);
 			g.fillRect(selected.getX() - 3, selected.getY() - 3, 6, 6);
+			if (editar) {
+				for (Rua rua : selected.getRuas()) {
+					g.drawLine(rua.getOrigem().getX(), rua.getOrigem().getY(), rua.getDestino().getX(), rua.getDestino().getY());
+					int ratex = (rua.getDestino().getX() - selected.getX()) / 4;
+					int ratey = (rua.getDestino().getY() - selected.getY()) / 4;
+					ratex = ratex + selected.getX();
+					ratey = ratey + selected.getY();
+					if (selected.getX() == rua.getDestino().getX()) {
+						ratex = ratex + 5;
+					}
+					if (selected.getX() >= rua.getDestino().getX()) {
+						g.drawString("<=", ratex, ratey);
+					} else {
+						g.drawString("=>", ratex, ratey);
+					}
+				}
+			}
 		}
 		if (!editar) {
 			if (selected2 != null) {
 				g.setColor(Color.black);
 				g.fillRect(selected2.getX() - 5, selected2.getY() - 5, 10, 10);
-				g.setColor(Color.green);
+				g.setColor(Color.orange);
 				g.fillRect(selected2.getX() - 3, selected2.getY() - 3, 6, 6);
 			}
 			if (caminho != null) {
@@ -186,6 +205,7 @@ public class Draw extends JPanel {
 	public void redimenciona(int largura, int altura) {
 		Dimension d = new Dimension(largura, altura);
 		this.setPreferredSize(d);
+		this.setSize(d);
 		paintComponent(this.getGraphics());
 	}
 
@@ -207,5 +227,10 @@ public class Draw extends JPanel {
 
 	void setStatusText(String texto) {
 		statusText = texto;
+	}
+
+	void select(String nome) {
+		selected = cidade.getEsquina(nome);
+		System.out.println(selected.toString());
 	}
 }
