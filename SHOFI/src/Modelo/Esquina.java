@@ -5,16 +5,16 @@ import java.util.LinkedList;
 
 /**
  *
- * @author Fernando Spanhol
+ * @author Spanhol e da Silva
  */
 public class Esquina implements Serializable {
 
 	private int x;		//posicao x do ponto
 	private int y;		//posicao y do ponto
-	String nome;
-	boolean visitado;
-	boolean semaforo;
-	LinkedList<Rua> ruas;
+	private String nome;
+	private boolean visitado;
+	private boolean semaforo;
+	private LinkedList<Rua> ruas;
 
 	public Esquina() {
 		this.x = 0;
@@ -96,7 +96,7 @@ public class Esquina implements Serializable {
 
 	@Override
 	public String toString() {
-		return (x + " | " + y);
+		return (nome);
 	}
 
 	//temporario

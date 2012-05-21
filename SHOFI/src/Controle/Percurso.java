@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controle;
 
 import Modelo.Cidade;
@@ -11,11 +7,10 @@ import java.util.LinkedList;
 
 /**
  *
- * @author Span
+ * @author Spanhol e da Silva
  */
 public class Percurso {
 
-	//percurso em largura, usando fila
 	public static LinkedList<Esquina> buscaAmplitude(Esquina origem, Esquina destino, Cidade cidade) {
 		LinkedList<Esquina> caminho;
 		if (origem == destino) {
@@ -76,6 +71,77 @@ public class Percurso {
 		return caminho;
 	}
 
+	//percurso em largura, usando fila
+	public static LinkedList<Esquina> buscaAmplitude(Esquina origem, Esquina destino, Cidade cidade, int maximoSemaforos) {
+		int semaforosPassados = 0;
+		if (maximoSemaforos <= 0) {
+			cidade.setSemaforoVisited();
+		}
+		LinkedList<Esquina> caminho;
+		if (origem == destino) {
+			caminho = new LinkedList<>();
+			caminho.add(origem);
+			return caminho;
+		}
+		Tabela[] table = new Tabela[cidade.getEsquinas().size()];
+		LinkedList<Esquina> expansao = new LinkedList();
+		//aloca lista de vertices na tabela hash
+		for (int i = 0; i < table.length; i++) {
+			table[i] = new Tabela(cidade.getEsquinas().get(i));
+		}
+		int idAtual = cidade.getEsquinas().indexOf(origem);
+		int idDestino;
+		Esquina temp;
+		boolean acaba = false;
+
+		origem.setVisitado(true);
+		expansao.add(origem);
+
+		while (!acaba) {
+			if (expansao.size() > 0) {
+				temp = expansao.getFirst();
+				if (temp.haveSemaforo()) {
+					semaforosPassados++;
+				}
+				if (semaforosPassados >= maximoSemaforos) {
+					cidade.setSemaforoVisited();
+				}
+				expansao.removeFirst();
+				for (Rua rua : temp.getRuas()) {
+					if (rua.getDestino() == destino) {
+						idDestino = cidade.getEsquinas().indexOf(rua.getDestino());
+						table[idDestino].setCaminho(temp);
+						acaba = true;
+						break;
+					}
+					if (!rua.getDestino().isVisitado()) {
+						idDestino = cidade.getEsquinas().indexOf(rua.getDestino());
+						table[idDestino].setCaminho(temp);
+						expansao.add(rua.getDestino());
+						rua.getDestino().setVisitado(true);
+					}
+				}
+			} else {
+				acaba = true;
+			}
+		}
+		cidade.setEsquinasNotVisited();
+		caminho = new LinkedList<>();
+		idAtual = cidade.getEsquinas().indexOf(destino);
+		caminho.add(destino);
+		if (table[idAtual].getCaminho() == null) {
+			System.out.println("Nao existe caminho");
+			return null;
+		}
+		while (table[idAtual].getCaminho() != null) {
+			temp = table[idAtual].getCaminho();
+			caminho.add(temp);
+			idAtual = cidade.getEsquinas().indexOf(temp);
+		}
+		caminho.add(origem);
+		return caminho;
+	}
+
 	public static LinkedList<Esquina> buscaProfundidade(Esquina origem, Esquina destino, Cidade cidade) {
 		LinkedList<Esquina> caminho;
 		if (origem == destino) {
@@ -99,6 +165,74 @@ public class Percurso {
 		while (!acaba) {
 			if (expansao.size() > 0) {
 				temp = expansao.getFirst();
+				expansao.removeFirst();
+				for (Rua rua : temp.getRuas()) {
+					if (rua.getDestino() == destino) {
+						table[cidade.getEsquinas().indexOf(rua.getDestino())].setCaminho(temp);
+						acaba = true;
+						break;
+					}
+					if (!rua.getDestino().isVisitado()) {
+						table[cidade.getEsquinas().indexOf(rua.getDestino())].setCaminho(temp);
+						expansao.addFirst(rua.getDestino());
+						rua.getDestino().setVisitado(true);
+					}
+				}
+			} else {
+				acaba = true;
+			}
+		}
+		cidade.setEsquinasNotVisited();
+
+		caminho = new LinkedList<>();
+		int id = cidade.getEsquinas().indexOf(destino);
+		caminho.add(destino);
+		if (table[id].getCaminho() == null) {
+			System.out.println("Nao existe caminho");
+			return null;
+		}
+		while (table[id].getCaminho() != null) {
+			temp = table[id].getCaminho();
+			caminho.add(temp);
+			id = cidade.getEsquinas().indexOf(temp);
+		}
+		caminho.add(origem);
+		return caminho;
+	}
+
+	public static LinkedList<Esquina> buscaProfundidade(Esquina origem, Esquina destino, Cidade cidade, int maximoSemaforos) {
+		int semaforosPassados = 0;
+		if (maximoSemaforos <= 0) {
+			cidade.setSemaforoVisited();
+		}
+		LinkedList<Esquina> caminho;
+		if (origem == destino) {
+			caminho = new LinkedList<>();
+			caminho.add(origem);
+			return caminho;
+		}
+		Tabela[] table = new Tabela[cidade.getEsquinas().size()];
+		LinkedList<Esquina> expansao = new LinkedList();
+		//aloca lista de vertices na tabela hash
+		for (int i = 0; i < table.length; i++) {
+			table[i] = new Tabela(cidade.getEsquinas().get(i));
+		}
+		int idDestino;
+		Esquina temp;
+		boolean acaba = false;
+
+		origem.setVisitado(true);
+		expansao.addFirst(origem);
+
+		while (!acaba) {
+			if (expansao.size() > 0) {
+				temp = expansao.getFirst();
+				if (temp.haveSemaforo()) {
+					semaforosPassados++;
+				}
+				if (semaforosPassados >= maximoSemaforos) {
+					cidade.setSemaforoVisited();
+				}
 				expansao.removeFirst();
 				for (Rua rua : temp.getRuas()) {
 					if (rua.getDestino() == destino) {
@@ -217,7 +351,7 @@ public class Percurso {
 		return caminho;
 	}
 
-	public static LinkedList<Esquina> dijkstra(Esquina origem, Esquina destino, Cidade cidade) {
+	public static LinkedList<Esquina> dijkistra(Esquina origem, Esquina destino, Cidade cidade) {
 		//tabela hash (1:1) com tanho igual ao numero de de verices 
 		Tabela[] table = new Tabela[cidade.getEsquinas().size()];
 

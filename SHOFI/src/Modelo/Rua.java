@@ -1,30 +1,32 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Modelo;
 
 import java.io.Serializable;
 
 /**
  *
- * @author Span
+ * @author Spanhol e da Silva
  */
 public class Rua implements Serializable {
 
-	Esquina origem;
-	Esquina destino;
-	int velocidade;
-	double distancia;
+	private Esquina origem;
+	private Esquina destino;
+	private double distancia;
+	private boolean calculado;
 
 	public Rua(Esquina origem, Esquina destino) {
 		this.origem = origem;
 		this.destino = destino;
 		this.distancia = Math.sqrt(Math.pow((destino.getX() - origem.getX()), 2) + Math.pow((destino.getY() - origem.getY()), 2));
+		calculado = true;
 	}
 
 	public double getDistancia() {
-		return distancia = Math.sqrt(Math.pow((destino.getX() - origem.getX()), 2) + Math.pow((destino.getY() - origem.getY()), 2));
+		if (!calculado) {
+			calculado = true;
+			return distancia = Math.sqrt(Math.pow((destino.getX() - origem.getX()), 2) + Math.pow((destino.getY() - origem.getY()), 2));
+		} else {
+			return distancia;
+		}
 	}
 
 	public void setDistancia(double distancia) {
@@ -37,14 +39,7 @@ public class Rua implements Serializable {
 
 	public void setDestino(Esquina destino) {
 		this.destino = destino;
-	}
-
-	public int getVelocidade() {
-		return velocidade;
-	}
-
-	public void setVelocidade(int velocidade) {
-		this.velocidade = velocidade;
+		calculado = false;
 	}
 
 	public Esquina getOrigem() {
@@ -53,5 +48,6 @@ public class Rua implements Serializable {
 
 	public void setOrigem(Esquina origem) {
 		this.origem = origem;
+		calculado = false;
 	}
 }
