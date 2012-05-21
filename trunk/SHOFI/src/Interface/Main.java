@@ -381,6 +381,7 @@ public class Main extends javax.swing.JFrame {
 
         jmFile.setText("File");
 
+        jmNovo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         jmNovo.setText("Novo");
         jmNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -390,7 +391,7 @@ public class Main extends javax.swing.JFrame {
         jmFile.add(jmNovo);
 
         jmSalvar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        jmSalvar.setText("Salvar");
+        jmSalvar.setText("Salvar mapa...");
         jmSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmSalvarActionPerformed(evt);
@@ -398,6 +399,7 @@ public class Main extends javax.swing.JFrame {
         });
         jmFile.add(jmSalvar);
 
+        jmAbrirMapa.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
         jmAbrirMapa.setText("Abrir mapa...");
         jmAbrirMapa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -406,7 +408,7 @@ public class Main extends javax.swing.JFrame {
         });
         jmFile.add(jmAbrirMapa);
 
-        jmAbrirImagem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        jmAbrirImagem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
         jmAbrirImagem.setText("Abrir imagem...");
         jmAbrirImagem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
