@@ -71,11 +71,14 @@ public class Percurso {
 		return caminho;
 	}
 
-	//percurso em largura, usando fila
-	public static LinkedList<Esquina> buscaAmplitude(Esquina origem, Esquina destino, Cidade cidade, int maximoSemaforos) {
-		int semaforosPassados = 0;
-		if (maximoSemaforos <= 0) {
+	//percurso em largura, usando fila//TODO
+	public static LinkedList<Esquina> buscaAmplitude(Esquina origem, Esquina destino, Cidade cidade, int movimentada, int semaforo) {
+		boolean evitarMovimentada = false;
+		if (semaforo == 100) {
 			cidade.setSemaforoVisited();
+		}
+		if (movimentada == 100) {
+			evitarMovimentada = true;
 		}
 		LinkedList<Esquina> caminho;
 		if (origem == destino) {
@@ -89,7 +92,7 @@ public class Percurso {
 		for (int i = 0; i < table.length; i++) {
 			table[i] = new Tabela(cidade.getEsquinas().get(i));
 		}
-		int idAtual = cidade.getEsquinas().indexOf(origem);
+		int idAtual;
 		int idDestino;
 		Esquina temp;
 		boolean acaba = false;
@@ -100,25 +103,23 @@ public class Percurso {
 		while (!acaba) {
 			if (expansao.size() > 0) {
 				temp = expansao.getFirst();
-				if (temp.haveSemaforo()) {
-					semaforosPassados++;
-				}
-				if (semaforosPassados >= maximoSemaforos) {
-					cidade.setSemaforoVisited();
-				}
 				expansao.removeFirst();
 				for (Rua rua : temp.getRuas()) {
 					if (rua.getDestino() == destino) {
-						idDestino = cidade.getEsquinas().indexOf(rua.getDestino());
-						table[idDestino].setCaminho(temp);
-						acaba = true;
-						break;
+						if (!(evitarMovimentada && rua.isMovimentada())) {
+							idDestino = cidade.getEsquinas().indexOf(rua.getDestino());
+							table[idDestino].setCaminho(temp);
+							acaba = true;
+							break;
+						}
 					}
 					if (!rua.getDestino().isVisitado()) {
-						idDestino = cidade.getEsquinas().indexOf(rua.getDestino());
-						table[idDestino].setCaminho(temp);
-						expansao.add(rua.getDestino());
-						rua.getDestino().setVisitado(true);
+						if (!(evitarMovimentada && rua.isMovimentada())) {
+							idDestino = cidade.getEsquinas().indexOf(rua.getDestino());
+							table[idDestino].setCaminho(temp);
+							expansao.add(rua.getDestino());
+							rua.getDestino().setVisitado(true);
+						}
 					}
 				}
 			} else {

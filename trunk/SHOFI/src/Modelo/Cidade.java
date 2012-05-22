@@ -75,7 +75,7 @@ public class Cidade implements Serializable {
 	}
 
 	//adiciona
-	public void add(Esquina origem, Esquina destino, boolean maoDupla) {
+	public void add(Esquina origem, Esquina destino, boolean maoDupla, boolean movimentada) {
 		if (origem == destino) {
 			return;
 		}
@@ -86,7 +86,7 @@ public class Cidade implements Serializable {
 			if (!esquinas.contains(destino)) {
 				esquinas.add(destino);
 			}
-			origem.addRua(destino);
+			origem.addRua(destino, movimentada);
 		}
 		if (maoDupla == true) {
 			if (!esquinas.contains(origem)) {
@@ -95,8 +95,8 @@ public class Cidade implements Serializable {
 			if (!esquinas.contains(destino)) {
 				esquinas.add(destino);
 			}
-			origem.addRua(destino);
-			destino.addRua(origem);
+			origem.addRua(destino, movimentada);
+			destino.addRua(origem, movimentada);
 		}
 	}
 

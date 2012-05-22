@@ -12,6 +12,7 @@ public class Rua implements Serializable {
 	private Esquina destino;
 	private double distancia;
 	private boolean calculado;
+	private boolean movimentada;
 
 	public Rua(Esquina origem, Esquina destino) {
 		this.origem = origem;
@@ -49,5 +50,13 @@ public class Rua implements Serializable {
 	public void setOrigem(Esquina origem) {
 		this.origem = origem;
 		calculado = false;
+	}
+
+	public boolean isMovimentada() {
+		return movimentada;
+	}
+
+	public void setMovimentada(boolean movimentada) {
+		this.movimentada = movimentada;
 	}
 }
