@@ -14,6 +14,7 @@ public class Esquina implements Serializable {
 	private String nome;
 	private boolean visitado;
 	private boolean semaforo;
+	private boolean interesse;
 	private LinkedList<Rua> ruas;
 
 	public Esquina() {
@@ -30,9 +31,10 @@ public class Esquina implements Serializable {
 		ruas = new LinkedList<>();
 	}
 
-	public void addRua(Esquina destino) {
+	public void addRua(Esquina destino, boolean movimentada) {
 		if (!RuasContem(destino)) {
 			Rua temp = new Rua(this, destino);
+			temp.setMovimentada(movimentada);
 			ruas.add(temp);
 		}
 	}
@@ -115,5 +117,13 @@ public class Esquina implements Serializable {
 			}
 		}
 		return false;
+	}
+
+	public boolean isInteresse() {
+		return interesse;
+	}
+
+	public void setInteresse(boolean interesse) {
+		this.interesse = interesse;
 	}
 }
