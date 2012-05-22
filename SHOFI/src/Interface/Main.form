@@ -103,12 +103,12 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jpPercurso" linkSize="9" max="-2" attributes="0"/>
-                  <Component id="jpPropriedades" linkSize="9" max="-2" attributes="0"/>
-                  <Component id="jPanel1" alignment="0" max="-2" attributes="0"/>
+                  <Component id="jpPercurso" linkSize="9" max="32767" attributes="0"/>
+                  <Component id="jpPropriedades" linkSize="9" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane" pref="738" max="32767" attributes="0"/>
+              <Component id="jScrollPane" pref="767" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -178,16 +178,17 @@
         <Component class="javax.swing.JComboBox" name="jcbAlgoritmo">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="9">
+              <StringArray count="10">
                 <StringItem index="0" value="Selecione"/>
                 <StringItem index="1" value="A*"/>
-                <StringItem index="2" value="Amplitude"/>
-                <StringItem index="3" value="Amplitude com restri&#xe7;&#xf5;es"/>
-                <StringItem index="4" value="Profundidade"/>
-                <StringItem index="5" value="Profundidade com restri&#xe7;&#xf5;es"/>
-                <StringItem index="6" value="Profundidade iterativa"/>
-                <StringItem index="7" value="Bidirecional"/>
-                <StringItem index="8" value="Dijkistra"/>
+                <StringItem index="2" value="A* com restri&#xe7;&#xf5;es"/>
+                <StringItem index="3" value="Amplitude"/>
+                <StringItem index="4" value="Amplitude com restri&#xe7;&#xf5;es"/>
+                <StringItem index="5" value="Profundidade"/>
+                <StringItem index="6" value="Profundidade com restri&#xe7;&#xf5;es"/>
+                <StringItem index="7" value="Profundidade iterativa"/>
+                <StringItem index="8" value="Bidirecional"/>
+                <StringItem index="9" value="Dijkistra"/>
               </StringArray>
             </Property>
           </Properties>
@@ -349,7 +350,7 @@
                       <Component id="jbPercurso" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="111" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -422,7 +423,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="736" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="765" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -439,37 +440,46 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="jcbSemaforo" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jlSelecionado" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jlSelecionado2" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jtfSelecionado" pref="145" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jtfSelecionado2" max="32767" attributes="0"/>
+                              <Component id="jtfSelecionado" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="jlCoordenadas" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                              <Component id="jlCoordenadas" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                           <Component id="jlX" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jtfPosicaoX" linkSize="4" min="-2" pref="54" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="jlY" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jtfPosicaoY" linkSize="4" min="-2" pref="51" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jcbSemaforo" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
-              <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -477,17 +487,17 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jtfSelecionado" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jlSelecionado" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jlSelecionado2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jtfSelecionado2" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jlSelecionado" min="-2" max="-2" attributes="0"/>
-                      <Component id="jtfSelecionado" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jlCoordenadas" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -496,7 +506,7 @@
                       <Component id="jlY" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jtfPosicaoY" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                   <Component id="jcbSemaforo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
@@ -513,7 +523,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jlSelecionado">
           <Properties>
-            <Property name="text" type="java.lang.String" value="nome:   "/>
+            <Property name="text" type="java.lang.String" value="Nome:   "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jtfPosicaoY">
@@ -553,7 +563,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jlSelecionado2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Origem:"/>
+            <Property name="text" type="java.lang.String" value="Destino:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jtfSelecionado2">

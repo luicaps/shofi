@@ -144,7 +144,7 @@ public class Main extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 600));
 
-        jcbAlgoritmo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "A*", "Amplitude", "Amplitude com restrições", "Profundidade", "Profundidade com restrições", "Profundidade iterativa", "Bidirecional", "Dijkistra" }));
+        jcbAlgoritmo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "A*", "A* com restrições", "Amplitude", "Amplitude com restrições", "Profundidade", "Profundidade com restrições", "Profundidade iterativa", "Bidirecional", "Dijkistra" }));
         jcbAlgoritmo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jcbAlgoritmoItemStateChanged(evt);
@@ -321,7 +321,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jCheckBox1)
                     .addComponent(jbPercurso)
                     .addComponent(jLabel1))
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpPropriedadesLayout.setVerticalGroup(
             jpPropriedadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -361,7 +361,7 @@ public class Main extends javax.swing.JFrame {
         jpDraw.setLayout(jpDrawLayout);
         jpDrawLayout.setHorizontalGroup(
             jpDrawLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 736, Short.MAX_VALUE)
+            .addGap(0, 765, Short.MAX_VALUE)
         );
         jpDrawLayout.setVerticalGroup(
             jpDrawLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -381,7 +381,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jlSelecionado.setText("nome:   ");
+        jlSelecionado.setText("Nome:   ");
 
         jtfPosicaoY.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -418,7 +418,7 @@ public class Main extends javax.swing.JFrame {
 
         jlX.setText("x: ");
 
-        jlSelecionado2.setText("Origem:");
+        jlSelecionado2.setText("Destino:");
 
         jtfSelecionado2.setEditable(false);
 
@@ -428,31 +428,37 @@ public class Main extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jcbSemaforo)
+                        .addGap(122, 122, 122))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jlSelecionado)
                             .addComponent(jlSelecionado2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jtfSelecionado, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-                            .addComponent(jtfSelecionado2)))
-                    .addComponent(jlCoordenadas)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtfSelecionado2)
+                            .addComponent(jtfSelecionado)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jlCoordenadas))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
                         .addComponent(jlX)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jtfPosicaoX, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jlY)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jtfPosicaoY, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jcbSemaforo)
-                    .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtfPosicaoY, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addComponent(jSeparator1)
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jtfPosicaoX, jtfPosicaoY});
@@ -462,15 +468,15 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtfSelecionado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlSelecionado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlSelecionado2)
                     .addComponent(jtfSelecionado2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlSelecionado)
-                    .addComponent(jtfSelecionado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jlCoordenadas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -478,7 +484,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jtfPosicaoX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlY)
                     .addComponent(jtfPosicaoY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(7, 7, 7)
                 .addComponent(jcbSemaforo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -532,11 +538,11 @@ public class Main extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jpPercurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jpPropriedades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jpPercurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpPropriedades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE))
+                .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 767, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jpPercurso, jpPropriedades});
@@ -571,7 +577,7 @@ public class Main extends javax.swing.JFrame {
 				//retorna esquina proxima ao ponto clicado ou uma nova esquina se nao houver nenhuma proxima
 				Esquina p = jpDraw.getCidade().getEsquinaProxima(evt.getPoint().x, evt.getPoint().y);
 				//se a selecao nao mudou nao ha nada para fazer
-				if (p == jpDraw.getSelected() || p == null) {
+				if (p == null) {
 					return;
 				}
 				//se a selecao mudou, seta selecao para o novo ponto
@@ -582,6 +588,17 @@ public class Main extends javax.swing.JFrame {
 				if (jpDraw.getSelected2() != null && jpDraw.getSelected() != null) {
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("A*")) {
 						jpDraw.setCaminho(Percurso.aEstrela(jpDraw.getSelected2(), jpDraw.getSelected(), jpDraw.getCidade()));
+					}
+					if (jcbAlgoritmo.getSelectedItem().toString().equals("A* com restrições")) {
+						int mov = 0;
+						if (jcbEvitarMovimentada.isEnabled()) {
+							mov = jsMovimentada.getValue();
+						}
+						int sem = 0;
+						if (jcbEvitarSemaforo.isEnabled()) {
+							sem = jsSemaforo.getValue();
+						}
+						jpDraw.setCaminho(Percurso.aEstrela(jpDraw.getSelected2(), jpDraw.getSelected(), jpDraw.getCidade(), mov, sem));
 					}
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Dijkistra")) {
 						jpDraw.setCaminho(Percurso.dijkistra(jpDraw.getSelected2(), jpDraw.getSelected(), jpDraw.getCidade()));
@@ -595,11 +612,15 @@ public class Main extends javax.swing.JFrame {
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Amplitude com restrições")) {
 						int mov = 0;
 						if (jcbEvitarMovimentada.isEnabled()) {
-							mov = jsMovimentada.getValue();
+							if (jsMovimentada.getValue() > 0) {
+								mov = 100;
+							}
 						}
 						int sem = 0;
 						if (jcbEvitarSemaforo.isEnabled()) {
-							sem = jsSemaforo.getValue();
+							if (jsSemaforo.getValue() > 0) {
+								sem = 100;
+							}
 						}
 						jpDraw.setCaminho(Percurso.buscaAmplitude(jpDraw.getSelected2(), jpDraw.getSelected(), jpDraw.getCidade(), mov, sem));
 					}
@@ -607,8 +628,19 @@ public class Main extends javax.swing.JFrame {
 						jpDraw.setCaminho(Percurso.buscaProfundidade(jpDraw.getSelected2(), jpDraw.getSelected(), jpDraw.getCidade()));
 					}
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Profundidade com restrições")) {
-						int max = 0;
-						jpDraw.setCaminho(Percurso.buscaProfundidade(jpDraw.getSelected2(), jpDraw.getSelected(), jpDraw.getCidade(), max));
+						int mov = 0;
+						if (jcbEvitarMovimentada.isEnabled()) {
+							if (jsMovimentada.getValue() > 0) {
+								mov = 100;
+							}
+						}
+						int sem = 0;
+						if (jcbEvitarSemaforo.isEnabled()) {
+							if (jsSemaforo.getValue() > 0) {
+								sem = 100;
+							}
+						}
+						jpDraw.setCaminho(Percurso.buscaProfundidade(jpDraw.getSelected2(), jpDraw.getSelected(), jpDraw.getCidade(), mov, sem));
 					}
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Profundidade iterativa")) {
 						jpDraw.setCaminho(Percurso.buscaProfundidadeIterativa(jpDraw.getSelected2(), jpDraw.getSelected(), jpDraw.getCidade()));
@@ -627,10 +659,6 @@ public class Main extends javax.swing.JFrame {
 		} else if (evt.getButton() == MouseEvent.BUTTON3) {
 			//retorna esquina proxima ao ponto clicado ou uma nova esquina se nao houver nenhuma proxima
 			Esquina p = jpDraw.getCidade().getEsquinaProxima(evt.getPoint().x, evt.getPoint().y);
-			//se a selecao nao mudou nao ha nada para fazer
-			if (p == jpDraw.getSelected2()) {
-				return;
-			}
 			if (!jpDraw.isEditar() && p == null) {
 				return;
 			}
@@ -643,6 +671,17 @@ public class Main extends javax.swing.JFrame {
 				if (jpDraw.getSelected2() != null && jpDraw.getSelected() != null) {
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("A*")) {
 						jpDraw.setCaminho(Percurso.aEstrela(jpDraw.getSelected2(), jpDraw.getSelected(), jpDraw.getCidade()));
+					}
+					if (jcbAlgoritmo.getSelectedItem().toString().equals("A* com restrições")) {
+						int mov = 0;
+						if (jcbEvitarMovimentada.isEnabled()) {
+							mov = jsMovimentada.getValue();
+						}
+						int sem = 0;
+						if (jcbEvitarSemaforo.isEnabled()) {
+							sem = jsSemaforo.getValue();
+						}
+						jpDraw.setCaminho(Percurso.aEstrela(jpDraw.getSelected2(), jpDraw.getSelected(), jpDraw.getCidade(), mov, sem));
 					}
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Dijkistra")) {
 						jpDraw.setCaminho(Percurso.dijkistra(jpDraw.getSelected2(), jpDraw.getSelected(), jpDraw.getCidade()));
@@ -663,7 +702,7 @@ public class Main extends javax.swing.JFrame {
 						int sem = 0;
 						if (jcbEvitarSemaforo.isEnabled()) {
 							if (jsSemaforo.getValue() > 0) {
-								mov = 100;
+								sem = 100;
 							}
 						}
 						jpDraw.setCaminho(Percurso.buscaAmplitude(jpDraw.getSelected2(), jpDraw.getSelected(), jpDraw.getCidade(), mov, sem));
@@ -681,10 +720,10 @@ public class Main extends javax.swing.JFrame {
 						int sem = 0;
 						if (jcbEvitarSemaforo.isEnabled()) {
 							if (jsSemaforo.getValue() > 0) {
-								mov = 100;
+								sem = 100;
 							}
 						}
-//						jpDraw.setCaminho(Percurso.buscaProfundidade(jpDraw.getSelected2(), jpDraw.getSelected(), jpDraw.getCidade(), mov, sem));
+						jpDraw.setCaminho(Percurso.buscaProfundidade(jpDraw.getSelected2(), jpDraw.getSelected(), jpDraw.getCidade(), mov, sem));
 					}
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Profundidade iterativa")) {
 						jpDraw.setCaminho(Percurso.buscaProfundidadeIterativa(jpDraw.getSelected2(), jpDraw.getSelected(), jpDraw.getCidade()));
@@ -830,7 +869,7 @@ public class Main extends javax.swing.JFrame {
 		jpPropriedades.setVisible(false);
 		jpPercurso.setVisible(true);
 		jpDraw.setEditar(false);
-		jlSelecionado.setText("Destino:");
+		jlSelecionado.setText("Origem:");
 		jtfSelecionado.setEditable(false);
 		jlSelecionado2.setVisible(true);
 		jtfSelecionado2.setVisible(true);
@@ -871,7 +910,8 @@ public class Main extends javax.swing.JFrame {
 
 	private void jcbAlgoritmoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbAlgoritmoItemStateChanged
 		if (jcbAlgoritmo.getSelectedItem().toString().equals("Amplitude com restrições")
-				|| jcbAlgoritmo.getSelectedItem().toString().equals("Profundidade com restrições")) {
+				|| jcbAlgoritmo.getSelectedItem().toString().equals("Profundidade com restrições")
+				|| jcbAlgoritmo.getSelectedItem().toString().equals("A* com restrições")) {
 			jpRestricoes.setVisible(true);
 		} else {
 			jpRestricoes.setVisible(false);

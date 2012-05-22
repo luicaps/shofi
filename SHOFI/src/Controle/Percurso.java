@@ -156,7 +156,6 @@ public class Percurso {
 		for (int i = 0; i < table.length; i++) {
 			table[i] = new Tabela(cidade.getEsquinas().get(i));
 		}
-		int idDestino;
 		Esquina temp;
 		boolean acaba = false;
 
@@ -201,10 +200,13 @@ public class Percurso {
 		return caminho;
 	}
 
-	public static LinkedList<Esquina> buscaProfundidade(Esquina origem, Esquina destino, Cidade cidade, int maximoSemaforos) {
-		int semaforosPassados = 0;
-		if (maximoSemaforos <= 0) {
+	public static LinkedList<Esquina> buscaProfundidade(Esquina origem, Esquina destino, Cidade cidade, int movimentada, int semaforo) {
+		boolean evitarMovimentada = false;
+		if (semaforo > 0) {
 			cidade.setSemaforoVisited();
+		}
+		if (movimentada == 100) {
+			evitarMovimentada = true;
 		}
 		LinkedList<Esquina> caminho;
 		if (origem == destino) {
@@ -218,7 +220,6 @@ public class Percurso {
 		for (int i = 0; i < table.length; i++) {
 			table[i] = new Tabela(cidade.getEsquinas().get(i));
 		}
-		int idDestino;
 		Esquina temp;
 		boolean acaba = false;
 
@@ -228,23 +229,21 @@ public class Percurso {
 		while (!acaba) {
 			if (expansao.size() > 0) {
 				temp = expansao.getFirst();
-				if (temp.haveSemaforo()) {
-					semaforosPassados++;
-				}
-				if (semaforosPassados >= maximoSemaforos) {
-					cidade.setSemaforoVisited();
-				}
 				expansao.removeFirst();
 				for (Rua rua : temp.getRuas()) {
 					if (rua.getDestino() == destino) {
-						table[cidade.getEsquinas().indexOf(rua.getDestino())].setCaminho(temp);
-						acaba = true;
-						break;
+						if (!(evitarMovimentada && rua.isMovimentada())) {
+							table[cidade.getEsquinas().indexOf(rua.getDestino())].setCaminho(temp);
+							acaba = true;
+							break;
+						}
 					}
 					if (!rua.getDestino().isVisitado()) {
-						table[cidade.getEsquinas().indexOf(rua.getDestino())].setCaminho(temp);
-						expansao.addFirst(rua.getDestino());
-						rua.getDestino().setVisitado(true);
+						if (!(evitarMovimentada && rua.isMovimentada())) {
+							table[cidade.getEsquinas().indexOf(rua.getDestino())].setCaminho(temp);
+							expansao.addFirst(rua.getDestino());
+							rua.getDestino().setVisitado(true);
+						}
 					}
 				}
 			} else {
@@ -571,6 +570,11 @@ public class Percurso {
 	}
 
 	public static LinkedList<Esquina> aEstrela(Esquina origem, Esquina destino, Cidade cidade) {
+		if (origem == destino) {
+			LinkedList<Esquina> caminho = new LinkedList<>();
+			caminho.add(origem);
+			return caminho;
+		}
 		//tabela hash (1:1) com tanho igual ao numero de de verices 
 		Tabela[] table = new Tabela[cidade.getEsquinas().size()];
 
@@ -610,6 +614,111 @@ public class Percurso {
 				} else if (table[idDestino].getDistanciaOrigem() > (table[idAtual].getDistanciaOrigem() + rua.getDistancia())) {
 					table[idDestino].setDistanciaOrigem(rua.getDistancia() + table[idAtual].getDistanciaOrigem());
 					table[idDestino].setCaminho(atual);
+				}
+			}
+			//observa a relacao (distancia do caminho para o nó + distancia em linha reta do nó até o destino)
+			//o nó com o menor resultado é escolhido para continuar a busca
+			for (int j = 0; j < table.length; j++) {
+				if (!table[j].isPermanente()) {
+					if ((table[j].getDistanciaDestino() + table[j].getDistanciaOrigem()) < menorDistancia) {
+						menorDistancia = table[j].getDistanciaOrigem() + table[j].getDistanciaOrigem();
+						//continua apartir do vertice j
+						idAtual = j;
+					}
+				}
+			}
+			if (table[idAtual].isPermanente()) {
+				acabar = true;
+			}
+			menorDistancia = Double.MAX_VALUE;
+		}
+
+		LinkedList<Esquina> caminho = new LinkedList<>();
+		idAtual = cidade.getEsquinas().indexOf(destino);
+		caminho.add(destino);
+		if (table[idAtual].getCaminho() == null) {
+			System.out.println("Nao existe caminho");
+			return null;
+		}
+		while (table[idAtual].getCaminho() != null) {
+			atual = table[idAtual].getCaminho();
+			caminho.add(atual);
+			idAtual = cidade.getEsquinas().indexOf(atual);
+		}
+		caminho.add(origem);
+		return caminho;
+	}
+
+	public static LinkedList<Esquina> aEstrela(Esquina origem, Esquina destino, Cidade cidade, int movimentada, int semaforo) {
+		if (origem == destino) {
+			LinkedList<Esquina> caminho = new LinkedList<>();
+			caminho.add(origem);
+			return caminho;
+		}
+		System.out.println("ms" + movimentada + ", " + semaforo);
+		double pesoMov = 5 * movimentada;
+		double pesoSem = 5 * semaforo;
+		//tabela hash (1:1) com tanho igual ao numero de de verices 
+		Tabela[] table = new Tabela[cidade.getEsquinas().size()];
+
+		double menorDistancia = Double.MAX_VALUE;
+		//ponteiro auxiliar para vertice sendo processado no momento
+		Esquina atual = origem;
+		//id do vertice atual na lista de vertices
+		int idAtual = cidade.getEsquinas().indexOf(atual);
+		int idDestino;
+		//aloca lista de vertices na tabela hash
+		double dist;
+		for (int i = 0; i < table.length; i++) {
+			table[i] = new Tabela(cidade.getEsquinas().get(i));
+			//dist = distancia em linha reta entre nó i e destino
+			dist = Math.sqrt(Math.pow((destino.getX() - table[i].getEsquina().getX()), 2) + Math.pow((destino.getY() - table[i].getEsquina().getY()), 2));
+			table[i].setDistanciaDestino(dist);
+		}
+		//distancia da origem para ela mesma = 0
+		table[idAtual].setDistanciaOrigem(0);
+		boolean acabar = false;
+		while (!acabar) {
+			//quando as distancias de todas as arestas de um vertice sao computadas
+			//ele é marcado como acabado
+			table[idAtual].setPermanente(true);
+			atual = cidade.getEsquinas().get(idAtual);
+			//processa todas as arestas do vertice atual
+			for (Rua rua : atual.getRuas()) {
+				idDestino = cidade.getEsquinas().indexOf(rua.getDestino());
+				//se a distacia do vertice de destino ao de origem for MAXIMA entao
+				//o caminho atual é o menor caminho para ele
+				if (table[idDestino].getDistanciaOrigem() == Double.MAX_VALUE) {
+					table[idDestino].setDistanciaOrigem(rua.getDistancia() + table[idAtual].getDistanciaOrigem());
+					if (rua.getDestino().haveSemaforo()) {
+						table[idDestino].setDistanciaOrigem(table[idDestino].getDistanciaOrigem() + pesoSem);
+					}
+					if (rua.isMovimentada()) {
+						table[idDestino].setDistanciaOrigem(table[idDestino].getDistanciaOrigem() + pesoMov);
+					}
+					table[idDestino].setCaminho(atual);
+					//se a distacia no vertice de destino for maior que a distacia do vertice atual mais o custo da aresta
+					//entao o novo caminho é, atualmente, o menor
+				} else {
+					if (rua.isMovimentada()) {
+						if (table[idDestino].getDistanciaOrigem() > (table[idAtual].getDistanciaOrigem() + rua.getDistancia() + pesoMov)) {
+							table[idDestino].setDistanciaOrigem(rua.getDistancia() + table[idAtual].getDistanciaOrigem() + pesoMov);
+							table[idDestino].setCaminho(atual);
+						}
+					} else if (rua.getDestino().haveSemaforo()) {
+						if (table[idDestino].getDistanciaOrigem() > (table[idAtual].getDistanciaOrigem() + rua.getDistancia()) + pesoSem) {
+							table[idDestino].setDistanciaOrigem(rua.getDistancia() + table[idAtual].getDistanciaOrigem() + pesoSem);
+							table[idDestino].setCaminho(atual);
+						}
+					} else if (rua.getDestino().haveSemaforo() && rua.isMovimentada()) {
+						if (table[idDestino].getDistanciaOrigem() > (table[idAtual].getDistanciaOrigem() + rua.getDistancia()) + pesoMov + pesoSem) {
+							table[idDestino].setDistanciaOrigem(rua.getDistancia() + table[idAtual].getDistanciaOrigem() + pesoMov + pesoSem);
+							table[idDestino].setCaminho(atual);
+						}
+					} else if (table[idDestino].getDistanciaOrigem() > (table[idAtual].getDistanciaOrigem() + rua.getDistancia())) {
+						table[idDestino].setDistanciaOrigem(rua.getDistancia() + table[idAtual].getDistanciaOrigem());
+						table[idDestino].setCaminho(atual);
+					}
 				}
 			}
 			//observa a relacao (distancia do caminho para o nó + distancia em linha reta do nó até o destino)
