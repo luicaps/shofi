@@ -540,7 +540,7 @@ public class Percurso {
 			while (tableDestino[id].getCaminho() != destino) {
 				esquinaDestino = tableDestino[id].getCaminho();
 				if (esquinaDestino == null) {
-					System.out.println("destino: sem intercessao");
+					System.out.println("sem intercessao");
 				}
 				caminho.add(esquinaDestino);
 				id = cidade.getEsquinas().indexOf(esquinaDestino);
@@ -559,7 +559,7 @@ public class Percurso {
 			while (tableOrigem[id].getCaminho() != origem) {
 				esquinaDestino = tableOrigem[id].getCaminho();
 				if (esquinaDestino == null) {
-					System.out.println("origem: sem intercessao");
+					System.out.println("sem intercessao");
 				}
 				caminho.add(esquinaDestino);
 				id = cidade.getEsquinas().indexOf(esquinaDestino);
@@ -655,7 +655,6 @@ public class Percurso {
 			caminho.add(origem);
 			return caminho;
 		}
-		System.out.println("ms" + movimentada + ", " + semaforo);
 		double pesoMov = 5 * movimentada;
 		double pesoSem = 5 * semaforo;
 		//tabela hash (1:1) com tanho igual ao numero de de verices 
@@ -690,7 +689,7 @@ public class Percurso {
 				//o caminho atual é o menor caminho para ele
 				if (table[idDestino].getDistanciaOrigem() == Double.MAX_VALUE) {
 					table[idDestino].setDistanciaOrigem(rua.getDistancia() + table[idAtual].getDistanciaOrigem());
-					if (rua.getDestino().haveSemaforo()) {
+					if (rua.getDestino().isSemaforo()) {
 						table[idDestino].setDistanciaOrigem(table[idDestino].getDistanciaOrigem() + pesoSem);
 					}
 					if (rua.isMovimentada()) {
@@ -705,12 +704,12 @@ public class Percurso {
 							table[idDestino].setDistanciaOrigem(rua.getDistancia() + table[idAtual].getDistanciaOrigem() + pesoMov);
 							table[idDestino].setCaminho(atual);
 						}
-					} else if (rua.getDestino().haveSemaforo()) {
+					} else if (rua.getDestino().isSemaforo()) {
 						if (table[idDestino].getDistanciaOrigem() > (table[idAtual].getDistanciaOrigem() + rua.getDistancia()) + pesoSem) {
 							table[idDestino].setDistanciaOrigem(rua.getDistancia() + table[idAtual].getDistanciaOrigem() + pesoSem);
 							table[idDestino].setCaminho(atual);
 						}
-					} else if (rua.getDestino().haveSemaforo() && rua.isMovimentada()) {
+					} else if (rua.getDestino().isSemaforo() && rua.isMovimentada()) {
 						if (table[idDestino].getDistanciaOrigem() > (table[idAtual].getDistanciaOrigem() + rua.getDistancia()) + pesoMov + pesoSem) {
 							table[idDestino].setDistanciaOrigem(rua.getDistancia() + table[idAtual].getDistanciaOrigem() + pesoMov + pesoSem);
 							table[idDestino].setCaminho(atual);

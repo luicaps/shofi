@@ -35,14 +35,32 @@ public class Draw extends JPanel {
 		if (cidade != null) {
 			g.setColor(Color.black);
 			for (Esquina esquina : cidade.getListaEsquinas()) {
-				if (esquina.haveSemaforo()) {
-					g.fillRect(esquina.getX() - 4, esquina.getY() - 4, 8, 8);
+				if (esquina.isInteresse()) {
+					g.fillRect(esquina.getX() - 5, esquina.getY() - 5, 10, 10);
+//					g.fillOval(esquina.getX() - 6, esquina.getY() - 6, 12, 12);
+					if (esquina.isSemaforo()) {
+						g.setColor(Color.white);
+						g.fillRect(esquina.getX() - 3, esquina.getY() - 3, 6, 6);
+//					g.fillOval(esquina.getX() - 4, esquina.getY() - 4, 8, 8);
+						g.setColor(Color.black);
+					} else {
+//					if (esquina.isSemaforo()) {
+						g.setColor(Color.green);
+						g.fillRect(esquina.getX() - 3, esquina.getY() - 3, 6, 6);
+						g.setColor(Color.black);
+//						g.fillOval(esquina.getX() - 3, esquina.getY() - 3, 6, 6);
+					}
+				} else if (esquina.isSemaforo()) {
+//					g.fillRect(esquina.getX() - 4, esquina.getY() - 4, 8, 8);
+					g.fillOval(esquina.getX() - 5, esquina.getY() - 5, 10, 10);
 					g.setColor(Color.green);
-					g.fillRect(esquina.getX() - 3, esquina.getY() - 3, 6, 6);
+//					g.fillRect(esquina.getX() - 2, esquina.getY() - 2, 4, 4);
+					g.fillOval(esquina.getX() - 4, esquina.getY() - 4, 8, 8);
 					g.setColor(Color.black);
 				} else {
 					g.fillRect(esquina.getX() - 2, esquina.getY() - 2, 4, 4);
 				}
+
 				if (editar) {
 					for (Rua rua : esquina.getRuas()) {
 //						g.drawLine(esquina.getX(), esquina.getY(), rua.getDestino().getX(), rua.getDestino().getY());
@@ -239,7 +257,7 @@ public class Draw extends JPanel {
 			movimentada = true;
 		}
 	}
-	
+
 	public void switchAnimar() {
 		if (animar == true) {
 			animar = false;

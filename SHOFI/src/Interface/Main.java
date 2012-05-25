@@ -54,17 +54,16 @@ public class Main extends javax.swing.JFrame {
 		}
 		if (jpDraw.getSelected() != null) {
 			jtfSelecionado.setText(jpDraw.getSelected().getNome());
-		} else {
-			jtfSelecionado.setText("");
-		}
-		if (jpDraw.getSelected() != null) {
 			jtfPosicaoX.setText(Integer.toString(jpDraw.getSelected().getX()));
 			jtfPosicaoY.setText(Integer.toString(jpDraw.getSelected().getY()));
-			jcbSemaforo.setSelected(jpDraw.getSelected().haveSemaforo());
+			jcbSemaforo.setSelected(jpDraw.getSelected().isSemaforo());
+			jcbInteresse.setSelected(jpDraw.getSelected().isInteresse());
 		} else {
+			jtfSelecionado.setText("");
 			jtfPosicaoX.setText("");
 			jtfPosicaoY.setText("");
 			jcbSemaforo.setSelected(false);
+			jcbInteresse.setSelected(false);
 		}
 	}
 
@@ -78,6 +77,7 @@ public class Main extends javax.swing.JFrame {
 			}
 			jpDraw.getSelected().setNome(jtfSelecionado.getText());
 			jpDraw.getSelected().setSemaforo(jcbSemaforo.isSelected());
+			jpDraw.getSelected().setInteresse(jcbInteresse.isSelected());
 			jpDraw.paintComponent(jpDraw.getGraphics());
 		}
 	}
@@ -128,6 +128,7 @@ public class Main extends javax.swing.JFrame {
         jtfSelecionado2 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jcbInteresse = new javax.swing.JCheckBox();
         jMenuBar2 = new javax.swing.JMenuBar();
         jmFile = new javax.swing.JMenu();
         jmNovo = new javax.swing.JMenuItem();
@@ -361,7 +362,7 @@ public class Main extends javax.swing.JFrame {
         jpDraw.setLayout(jpDrawLayout);
         jpDrawLayout.setHorizontalGroup(
             jpDrawLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 765, Short.MAX_VALUE)
+            .addGap(0, 767, Short.MAX_VALUE)
         );
         jpDrawLayout.setVerticalGroup(
             jpDrawLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -424,6 +425,13 @@ public class Main extends javax.swing.JFrame {
 
         jLabel8.setText("Informações:");
 
+        jcbInteresse.setText("Ponto de interesse");
+        jcbInteresse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbInteresseActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -432,10 +440,6 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jcbSemaforo)
-                        .addGap(122, 122, 122))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jlSelecionado)
@@ -445,11 +449,6 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(jtfSelecionado2)
                             .addComponent(jtfSelecionado)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jlCoordenadas))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addComponent(jlX)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -457,7 +456,16 @@ public class Main extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jlY)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtfPosicaoY, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jtfPosicaoY, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jlCoordenadas))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jcbSemaforo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jcbInteresse)))
                 .addContainerGap())
         );
 
@@ -485,7 +493,9 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jlY)
                     .addComponent(jtfPosicaoY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
-                .addComponent(jcbSemaforo)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jcbSemaforo)
+                    .addComponent(jcbInteresse))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -542,7 +552,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jpPropriedades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 767, Short.MAX_VALUE))
+                .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 769, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jpPercurso, jpPropriedades});
@@ -943,6 +953,10 @@ public class Main extends javax.swing.JFrame {
 			jsSemaforo.setValue(0);
 		}
 	}//GEN-LAST:event_jcbEvitarSemaforoActionPerformed
+
+	private void jcbInteresseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbInteresseActionPerformed
+		setPropriedades();
+	}//GEN-LAST:event_jcbInteresseActionPerformed
 	/**
 	 * @param args the command line arguments
 	 */
@@ -980,6 +994,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JComboBox jcbAlgoritmo;
     private javax.swing.JCheckBox jcbEvitarMovimentada;
     private javax.swing.JCheckBox jcbEvitarSemaforo;
+    private javax.swing.JCheckBox jcbInteresse;
     private javax.swing.JCheckBox jcbMovimentada;
     private javax.swing.JCheckBox jcbSemaforo;
     private javax.swing.JLabel jlCoordenadas;

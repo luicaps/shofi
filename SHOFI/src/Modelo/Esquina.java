@@ -47,7 +47,7 @@ public class Esquina implements Serializable {
 		this.nome = nome;
 	}
 
-	public boolean haveSemaforo() {
+	public boolean isSemaforo() {
 		return semaforo;
 	}
 
