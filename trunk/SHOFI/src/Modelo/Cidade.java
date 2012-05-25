@@ -124,7 +124,7 @@ public class Cidade implements Serializable {
 
 	public void setSemaforoVisited() {
 		for (Esquina esquina : esquinas) {
-			if (esquina.haveSemaforo()) {
+			if (esquina.isSemaforo()) {
 				esquina.setVisitado(true);
 			}
 		}
