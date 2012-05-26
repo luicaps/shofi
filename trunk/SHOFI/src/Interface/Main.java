@@ -96,7 +96,6 @@ public class Main extends javax.swing.JFrame {
         jpPercurso = new javax.swing.JPanel();
         jcbAlgoritmo = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
-        jbEditar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jpRestricoes = new javax.swing.JPanel();
@@ -106,6 +105,8 @@ public class Main extends javax.swing.JFrame {
         jsSemaforo = new javax.swing.JSlider();
         jsMovimentada = new javax.swing.JSlider();
         jLabel10 = new javax.swing.JLabel();
+        jcbSomenteInteresse = new javax.swing.JCheckBox();
+        jbEditar = new javax.swing.JButton();
         jpPropriedades = new javax.swing.JPanel();
         jCheckBox1 = new javax.swing.JCheckBox();
         jbPercurso = new javax.swing.JButton();
@@ -151,13 +152,6 @@ public class Main extends javax.swing.JFrame {
         });
 
         jLabel2.setText("Algoritmo:");
-
-        jbEditar.setText("<< Editar Grafo");
-        jbEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbEditarActionPerformed(evt);
-            }
-        });
 
         jLabel3.setText("Botão esquerdo do mouse: origem");
 
@@ -224,46 +218,71 @@ public class Main extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(jcbEvitarMovimentada)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jsMovimentada, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                .addGap(13, 13, 13))
+                .addComponent(jsMovimentada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jLabel10.setText("Percurso:");
+
+        jcbSomenteInteresse.setSelected(true);
+        jcbSomenteInteresse.setText("Somente pontos de interesse");
+        jcbSomenteInteresse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbSomenteInteresseActionPerformed(evt);
+            }
+        });
+
+        jbEditar.setText("<< Editar Grafo");
+        jbEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEditarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpPercursoLayout = new javax.swing.GroupLayout(jpPercurso);
         jpPercurso.setLayout(jpPercursoLayout);
         jpPercursoLayout.setHorizontalGroup(
             jpPercursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpPercursoLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jpPercursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jpRestricoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel2)
-                    .addComponent(jcbAlgoritmo, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jpPercursoLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(jpPercursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel2)
+                            .addComponent(jcbSomenteInteresse)
+                            .addComponent(jcbAlgoritmo, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jpPercursoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jbEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPercursoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jpRestricoes, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jpPercursoLayout.setVerticalGroup(
             jpPercursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPercursoLayout.createSequentialGroup()
+            .addGroup(jpPercursoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
-                .addGap(25, 25, 25)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jcbSomenteInteresse)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jcbAlgoritmo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpRestricoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(9, 9, 9)
                 .addComponent(jbEditar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         jpPropriedades.setAlignmentX(0.0F);
@@ -302,21 +321,21 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(jpPropriedadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jcbMovimentada)
                     .addComponent(jCheckBox1)
-                    .addComponent(jbPercurso)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(jbPercurso, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpPropriedadesLayout.setVerticalGroup(
             jpPropriedadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPropriedadesLayout.createSequentialGroup()
+            .addGroup(jpPropriedadesLayout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jcbMovimentada)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(37, 37, 37)
                 .addComponent(jbPercurso)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jpDraw.setFocusCycleRoot(true);
@@ -344,11 +363,11 @@ public class Main extends javax.swing.JFrame {
         jpDraw.setLayout(jpDrawLayout);
         jpDrawLayout.setHorizontalGroup(
             jpDrawLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 767, Short.MAX_VALUE)
+            .addGap(0, 773, Short.MAX_VALUE)
         );
         jpDrawLayout.setVerticalGroup(
             jpDrawLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 641, Short.MAX_VALUE)
+            .addGap(0, 681, Short.MAX_VALUE)
         );
 
         jScrollPane.setViewportView(jpDraw);
@@ -418,37 +437,37 @@ public class Main extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlSelecionado)
-                            .addComponent(jlSelecionado2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtfSelecionado2)
-                            .addComponent(jtfSelecionado)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jlX)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtfPosicaoX, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jlY)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtfPosicaoY, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jlSelecionado)
+                                    .addComponent(jlSelecionado2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jtfSelecionado, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                                    .addComponent(jtfSelecionado2)))
                             .addComponent(jLabel8)
-                            .addComponent(jlCoordenadas))
+                            .addComponent(jlCoordenadas)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jcbSemaforo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jcbInteresse))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(jlX)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jtfPosicaoX, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(38, 38, 38)
+                                .addComponent(jlY)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jtfPosicaoY, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jcbSemaforo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jcbInteresse)))
-                .addContainerGap())
+                    .addComponent(jSeparator1))
+                .addGap(8, 8, 8))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jtfPosicaoX, jtfPosicaoY});
@@ -529,25 +548,22 @@ public class Main extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jpPercurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpPropriedades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jpPropriedades, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpPercurso, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 769, Short.MAX_VALUE))
+                .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jpPercurso, jpPropriedades});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpPropriedades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpPercurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jpPercurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane)
         );
 
         pack();
@@ -572,8 +588,16 @@ public class Main extends javax.swing.JFrame {
 				if (p == null) {
 					return;
 				}
-				//se a selecao mudou, seta selecao para o novo ponto
-				jpDraw.setSelected(p);
+				if (!jpDraw.isSomenteInteresse()) {
+					//se a selecao mudou, seta selecao para o novo ponto
+					jpDraw.setSelected(p);
+				} else {
+					if (p.isInteresse()) {
+						jpDraw.setSelected(p);
+					} else {
+						return;
+					}
+				}
 				//mostra propriedades da esquina selecionada
 				showPropriedades();
 				//se existem duas esquinas selecionadas sera calculado o menor caminho entre elas atraves do algoritmo selecionado
@@ -655,7 +679,16 @@ public class Main extends javax.swing.JFrame {
 				return;
 			}
 			//se a selecao mudou, seta selecao para o novo ponto
-			jpDraw.setSelected2(p);
+			if (!jpDraw.isSomenteInteresse()) {
+				//se a selecao mudou, seta selecao para o novo ponto
+				jpDraw.setSelected2(p);
+			} else {
+				if (p.isInteresse()) {
+					jpDraw.setSelected2(p);
+				} else {
+					return;
+				}
+			}
 			//mostra propriedades da esquina selecionada
 			showPropriedades();
 			//se existem duas esquinas selecionadas sera calculado o menor caminho entre elas atraves do algoritmo selecionado
@@ -937,6 +970,11 @@ public class Main extends javax.swing.JFrame {
 	private void jcbInteresseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbInteresseActionPerformed
 		setPropriedades();
 	}//GEN-LAST:event_jcbInteresseActionPerformed
+
+	private void jcbSomenteInteresseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSomenteInteresseActionPerformed
+		jpDraw.setSomenteInteresse(jcbSomenteInteresse.isSelected());
+		jpDraw.paintComponent(jpDraw.getGraphics());
+	}//GEN-LAST:event_jcbSomenteInteresseActionPerformed
 	/**
 	 * @param args the command line arguments
 	 */
@@ -975,6 +1013,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JCheckBox jcbInteresse;
     private javax.swing.JCheckBox jcbMovimentada;
     private javax.swing.JCheckBox jcbSemaforo;
+    private javax.swing.JCheckBox jcbSomenteInteresse;
     private javax.swing.JLabel jlCoordenadas;
     private javax.swing.JLabel jlRestricoes;
     private javax.swing.JLabel jlSelecionado;
