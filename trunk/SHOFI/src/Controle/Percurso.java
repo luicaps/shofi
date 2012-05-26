@@ -277,7 +277,7 @@ public class Percurso {
 		}
 		Tabela[] table = new Tabela[cidade.getEsquinas().size()];
 		int limite = 1;
-		int limitantelimite = 5;
+		int limitantelimite = 500;
 		int atual = 0;
 		//aloca lista de vertices na tabela hash
 		Esquina temp;
@@ -352,6 +352,12 @@ public class Percurso {
 	}
 
 	public static LinkedList<Esquina> dijkistra(Esquina origem, Esquina destino, Cidade cidade) {
+		LinkedList<Esquina> caminho;
+		if (origem == destino) {
+			caminho = new LinkedList<>();
+			caminho.add(origem);
+			return caminho;
+		}
 		//tabela hash (1:1) com tanho igual ao numero de de verices 
 		Tabela[] table = new Tabela[cidade.getEsquinas().size()];
 
@@ -405,7 +411,7 @@ public class Percurso {
 			menorDistancia = Double.MAX_VALUE;
 		}
 
-		LinkedList<Esquina> caminho = new LinkedList<>();
+		caminho = new LinkedList<>();
 		idAtual = cidade.getEsquinas().indexOf(destino);
 		caminho.add(destino);
 		if (table[idAtual].getCaminho() == null) {
@@ -621,7 +627,7 @@ public class Percurso {
 			for (int j = 0; j < table.length; j++) {
 				if (!table[j].isPermanente()) {
 					if ((table[j].getDistanciaDestino() + table[j].getDistanciaOrigem()) < menorDistancia) {
-						menorDistancia = table[j].getDistanciaOrigem() + table[j].getDistanciaOrigem();
+						menorDistancia = table[j].getDistanciaDestino() + table[j].getDistanciaOrigem();
 						//continua apartir do vertice j
 						idAtual = j;
 					}
@@ -725,7 +731,7 @@ public class Percurso {
 			for (int j = 0; j < table.length; j++) {
 				if (!table[j].isPermanente()) {
 					if ((table[j].getDistanciaDestino() + table[j].getDistanciaOrigem()) < menorDistancia) {
-						menorDistancia = table[j].getDistanciaOrigem() + table[j].getDistanciaOrigem();
+						menorDistancia = table[j].getDistanciaDestino() + table[j].getDistanciaOrigem();
 						//continua apartir do vertice j
 						idAtual = j;
 					}
