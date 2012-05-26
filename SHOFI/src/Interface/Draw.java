@@ -22,7 +22,6 @@ public class Draw extends JPanel {
 	boolean maoDupla = true;
 	boolean movimentada = false;
 	boolean editar = true;
-	boolean animar = true; //abilita passo a passo do desenho do caminho
 	String statusText = "";
 
 	//funcao responsavel por pintar as esquinas e ruas
@@ -69,6 +68,7 @@ public class Draw extends JPanel {
 						}
 						if (rua.isMovimentada()) {
 							drawThickLine(g, esquina.getX(), esquina.getY(), rua.getDestino().getX(), rua.getDestino().getY(), 2, Color.blue);
+							g.setColor(Color.black);
 						}
 //					if (editar) {
 //						int ratex = (rua.getDestino().getX() - esquina.getX()) / 4;
@@ -124,13 +124,6 @@ public class Draw extends JPanel {
 				for (Esquina esquina : caminho) {
 					g.fillRect(esquina.getX() - 3, esquina.getY() - 3, 6, 6);
 					int i = caminho.indexOf(esquina);
-					if (animar) {
-						try {
-							Thread.sleep(250);
-						} catch (InterruptedException ex) {
-							Logger.getLogger(Draw.class.getName()).log(Level.SEVERE, null, ex);
-						}
-					}
 					if (i + 1 < caminho.size()) {
 						drawThickLine(g, esquina.getX(), esquina.getY(), caminho.get(i + 1).getX(), caminho.get(i + 1).getY(), 2, g.getColor());
 					}
@@ -255,14 +248,6 @@ public class Draw extends JPanel {
 			movimentada = false;
 		} else {
 			movimentada = true;
-		}
-	}
-
-	public void switchAnimar() {
-		if (animar == true) {
-			animar = false;
-		} else {
-			animar = true;
 		}
 	}
 
