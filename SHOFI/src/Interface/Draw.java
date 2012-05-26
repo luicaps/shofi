@@ -8,8 +8,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 public class Draw extends JPanel {
@@ -22,6 +20,7 @@ public class Draw extends JPanel {
 	boolean maoDupla = true;
 	boolean movimentada = false;
 	boolean editar = true;
+	boolean somenteInteresse = true;
 	String statusText = "";
 
 	//funcao responsavel por pintar as esquinas e ruas
@@ -32,37 +31,46 @@ public class Draw extends JPanel {
 			g.drawImage(bgimage, 0, 0, this);
 		}
 		if (cidade != null) {
-			g.setColor(Color.black);
 			for (Esquina esquina : cidade.getListaEsquinas()) {
-				if (esquina.isInteresse()) {
-					g.fillRect(esquina.getX() - 5, esquina.getY() - 5, 10, 10);
-//					g.fillOval(esquina.getX() - 6, esquina.getY() - 6, 12, 12);
-					if (esquina.isSemaforo()) {
-						g.setColor(Color.white);
-						g.fillRect(esquina.getX() - 3, esquina.getY() - 3, 6, 6);
-//					g.fillOval(esquina.getX() - 4, esquina.getY() - 4, 8, 8);
+				if (editar || (!somenteInteresse && !editar)) {
+					if (esquina.isInteresse()) {
 						g.setColor(Color.black);
-					} else {
-//					if (esquina.isSemaforo()) {
-						g.setColor(Color.green);
-						g.fillRect(esquina.getX() - 3, esquina.getY() - 3, 6, 6);
+						g.fillRect(esquina.getX() - 5, esquina.getY() - 5, 10, 10);
+						if (esquina.isSemaforo()) {//preenche de verde
+							g.setColor(Color.yellow);
+							g.fillRect(esquina.getX() - 3, esquina.getY() - 3, 6, 6);
+							g.setColor(Color.black);
+						} else {
+							g.setColor(Color.green);
+							g.fillRect(esquina.getX() - 3, esquina.getY() - 3, 6, 6);
+							g.setColor(Color.black);
+						}
+					} else if (esquina.isSemaforo()) {
+						g.fillOval(esquina.getX() - 5, esquina.getY() - 5, 10, 10);
+						g.setColor(Color.yellow);
+						g.fillOval(esquina.getX() - 4, esquina.getY() - 4, 8, 8);
 						g.setColor(Color.black);
-//						g.fillOval(esquina.getX() - 3, esquina.getY() - 3, 6, 6);
+					} else {//esquina simples
+						g.fillRect(esquina.getX() - 2, esquina.getY() - 2, 4, 4);
 					}
-				} else if (esquina.isSemaforo()) {
-//					g.fillRect(esquina.getX() - 4, esquina.getY() - 4, 8, 8);
-					g.fillOval(esquina.getX() - 5, esquina.getY() - 5, 10, 10);
-					g.setColor(Color.green);
-//					g.fillRect(esquina.getX() - 2, esquina.getY() - 2, 4, 4);
-					g.fillOval(esquina.getX() - 4, esquina.getY() - 4, 8, 8);
-					g.setColor(Color.black);
 				} else {
-					g.fillRect(esquina.getX() - 2, esquina.getY() - 2, 4, 4);
+					if (esquina.isInteresse()) {
+						g.setColor(Color.black);
+						g.fillRect(esquina.getX() - 5, esquina.getY() - 5, 10, 10);
+						if (esquina.isSemaforo()) {
+							g.setColor(Color.yellow);
+							g.fillRect(esquina.getX() - 3, esquina.getY() - 3, 6, 6);
+							g.setColor(Color.black);
+						} else {
+							g.setColor(Color.green);
+							g.fillRect(esquina.getX() - 3, esquina.getY() - 3, 6, 6);
+							g.setColor(Color.black);
+						}
+					}
 				}
 
 				if (editar) {
 					for (Rua rua : esquina.getRuas()) {
-//						g.drawLine(esquina.getX(), esquina.getY(), rua.getDestino().getX(), rua.getDestino().getY());
 						if (!rua.isMovimentada()) {
 							drawThickLine(g, esquina.getX(), esquina.getY(), rua.getDestino().getX(), rua.getDestino().getY(), 2, Color.black);
 						}
@@ -122,7 +130,7 @@ public class Draw extends JPanel {
 			if (caminho != null) {
 				g.setColor(Color.red);
 				for (Esquina esquina : caminho) {
-					g.fillRect(esquina.getX() - 3, esquina.getY() - 3, 6, 6);
+//					g.fillRect(esquina.getX() - 3, esquina.getY() - 3, 6, 6);
 					int i = caminho.indexOf(esquina);
 					if (i + 1 < caminho.size()) {
 						drawThickLine(g, esquina.getX(), esquina.getY(), caminho.get(i + 1).getX(), caminho.get(i + 1).getY(), 2, g.getColor());
@@ -226,6 +234,14 @@ public class Draw extends JPanel {
 
 	public void setCaminho(LinkedList<Esquina> caminho) {
 		this.caminho = caminho;
+	}
+
+	public boolean isSomenteInteresse() {
+		return somenteInteresse;
+	}
+
+	public void setSomenteInteresse(boolean somenteInteresse) {
+		this.somenteInteresse = somenteInteresse;
 	}
 
 	public void redimenciona(int largura, int altura) {
