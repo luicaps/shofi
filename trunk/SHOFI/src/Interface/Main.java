@@ -243,25 +243,25 @@ public class Main extends javax.swing.JFrame {
         jpPercurso.setLayout(jpPercursoLayout);
         jpPercursoLayout.setHorizontalGroup(
             jpPercursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpPercursoLayout.createSequentialGroup()
-                .addGroup(jpPercursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpPercursoLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(jpPercursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel2)
-                            .addComponent(jcbSomenteInteresse)
-                            .addComponent(jcbAlgoritmo, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPercursoLayout.createSequentialGroup()
+                .addGroup(jpPercursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jpRestricoes, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jpPercursoLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jbEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPercursoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jpRestricoes, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+                        .addComponent(jLabel10))
+                    .addGroup(jpPercursoLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jpPercursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpPercursoLayout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addGroup(jpPercursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jcbSomenteInteresse)
+                                    .addComponent(jcbAlgoritmo, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jbEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18))
         );
         jpPercursoLayout.setVerticalGroup(
             jpPercursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -679,7 +679,7 @@ public class Main extends javax.swing.JFrame {
 				return;
 			}
 			//se a selecao mudou, seta selecao para o novo ponto
-			if (!jpDraw.isSomenteInteresse()) {
+			if (!jpDraw.isSomenteInteresse() || p == null) {
 				//se a selecao mudou, seta selecao para o novo ponto
 				jpDraw.setSelected2(p);
 			} else {

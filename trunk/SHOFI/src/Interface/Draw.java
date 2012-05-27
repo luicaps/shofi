@@ -130,6 +130,12 @@ public class Draw extends JPanel {
 			if (caminho != null) {
 				g.setColor(Color.red);
 				for (Esquina esquina : caminho) {
+					if (esquina.isSemaforo()) {
+						g.fillOval(esquina.getX() - 5, esquina.getY() - 5, 10, 10);
+						g.setColor(Color.yellow);
+						g.fillOval(esquina.getX() - 4, esquina.getY() - 4, 8, 8);
+						g.setColor(Color.red);
+					}
 //					g.fillRect(esquina.getX() - 3, esquina.getY() - 3, 6, 6);
 					int i = caminho.indexOf(esquina);
 					if (i + 1 < caminho.size()) {
