@@ -197,7 +197,7 @@
                 <StringItem index="6" value="Profundidade com restri&#xe7;&#xf5;es"/>
                 <StringItem index="7" value="Profundidade iterativa"/>
                 <StringItem index="8" value="Bidirecional"/>
-                <StringItem index="9" value="Dijkistra"/>
+                <StringItem index="9" value="Dijkstra"/>
               </StringArray>
             </Property>
           </Properties>

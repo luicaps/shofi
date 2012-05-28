@@ -144,7 +144,7 @@ public class Main extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 600));
 
-        jcbAlgoritmo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "A*", "A* com restrições", "Amplitude", "Amplitude com restrições", "Profundidade", "Profundidade com restrições", "Profundidade iterativa", "Bidirecional", "Dijkistra" }));
+        jcbAlgoritmo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "A*", "A* com restrições", "Amplitude", "Amplitude com restrições", "Profundidade", "Profundidade com restrições", "Profundidade iterativa", "Bidirecional", "Dijkstra" }));
         jcbAlgoritmo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jcbAlgoritmoItemStateChanged(evt);
@@ -616,8 +616,8 @@ public class Main extends javax.swing.JFrame {
 						}
 						jpDraw.setCaminho(Percurso.aEstrela(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade(), mov, sem));
 					}
-					if (jcbAlgoritmo.getSelectedItem().toString().equals("Dijkistra")) {
-						jpDraw.setCaminho(Percurso.dijkistra(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade()));
+					if (jcbAlgoritmo.getSelectedItem().toString().equals("Dijkstra")) {
+						jpDraw.setCaminho(Percurso.dijkstra(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade()));
 					}
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Bidirecional")) {
 						jpDraw.setCaminho(Percurso.buscaBidirecional(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade()));
@@ -708,8 +708,8 @@ public class Main extends javax.swing.JFrame {
 						}
 						jpDraw.setCaminho(Percurso.aEstrela(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade(), mov, sem));
 					}
-					if (jcbAlgoritmo.getSelectedItem().toString().equals("Dijkistra")) {
-						jpDraw.setCaminho(Percurso.dijkistra(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade()));
+					if (jcbAlgoritmo.getSelectedItem().toString().equals("Dijkstra")) {
+						jpDraw.setCaminho(Percurso.dijkstra(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade()));
 					}
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Bidirecional")) {
 						jpDraw.setCaminho(Percurso.buscaBidirecional(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade()));
