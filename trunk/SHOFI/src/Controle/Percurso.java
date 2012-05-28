@@ -351,7 +351,7 @@ public class Percurso {
 		return caminho;
 	}
 
-	public static LinkedList<Esquina> dijkistra(Esquina origem, Esquina destino, Cidade cidade) {
+	public static LinkedList<Esquina> dijkstra(Esquina origem, Esquina destino, Cidade cidade) {
 		LinkedList<Esquina> caminho;
 		if (origem == destino) {
 			caminho = new LinkedList<>();
