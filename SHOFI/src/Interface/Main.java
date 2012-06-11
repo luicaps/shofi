@@ -1,6 +1,7 @@
 package Interface;
 
 import Controle.Percurso;
+import Controle.Resultado;
 import Modelo.Cidade;
 import Modelo.Esquina;
 import java.awt.event.KeyEvent;
@@ -144,7 +145,7 @@ public class Main extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 600));
 
-        jcbAlgoritmo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "A*", "A* com restrições", "Amplitude", "Amplitude com restrições", "Profundidade", "Profundidade com restrições", "Profundidade iterativa", "Bidirecional", "Dijkstra" }));
+        jcbAlgoritmo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "A*", "A* com restrições", "Amplitude", "Amplitude com restrições", "Profundidade", "Profundidade com restrições", "Profundidade iterativa", "Bidirecional", "Dijkstra", "Satisfação de restrições" }));
         jcbAlgoritmo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jcbAlgoritmoItemStateChanged(evt);
@@ -620,10 +621,14 @@ public class Main extends javax.swing.JFrame {
 						jpDraw.setCaminho(Percurso.dijkstra(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade()));
 					}
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Bidirecional")) {
-						jpDraw.setCaminho(Percurso.buscaBidirecional(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade()));
+						Resultado r = Percurso.buscaBidirecional(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade());
+						jpDraw.setCaminho(r.getCaminho());
+						jpDraw.setVisitados(r.getVisitados());
 					}
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Amplitude")) {
-						jpDraw.setCaminho(Percurso.buscaAmplitude(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade()));
+						Resultado r = Percurso.buscaAmplitude(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade());
+						jpDraw.setCaminho(r.getCaminho());
+						jpDraw.setVisitados(r.getVisitados());
 					}
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Amplitude com restrições")) {
 						int mov = 0;
@@ -638,10 +643,14 @@ public class Main extends javax.swing.JFrame {
 								sem = 100;
 							}
 						}
-						jpDraw.setCaminho(Percurso.buscaAmplitude(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade(), mov, sem));
+						Resultado r = Percurso.buscaAmplitude(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade(), mov, sem);
+						jpDraw.setCaminho(r.getCaminho());
+						jpDraw.setVisitados(r.getVisitados());
 					}
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Profundidade")) {
-						jpDraw.setCaminho(Percurso.buscaProfundidade(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade()));
+						Resultado r = Percurso.buscaProfundidade(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade());
+						jpDraw.setCaminho(r.getCaminho());
+						jpDraw.setVisitados(r.getVisitados());
 					}
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Profundidade com restrições")) {
 						int mov = 0;
@@ -656,10 +665,19 @@ public class Main extends javax.swing.JFrame {
 								sem = 100;
 							}
 						}
-						jpDraw.setCaminho(Percurso.buscaProfundidade(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade(), mov, sem));
+						Resultado r = Percurso.buscaProfundidade(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade(), mov, sem);
+						jpDraw.setCaminho(r.getCaminho());
+						jpDraw.setVisitados(r.getVisitados());
 					}
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Profundidade iterativa")) {
-						jpDraw.setCaminho(Percurso.buscaProfundidadeIterativa(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade()));
+						Resultado r = Percurso.buscaProfundidadeIterativa(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade());
+						jpDraw.setCaminho(r.getCaminho());
+						jpDraw.setVisitados(r.getVisitados());
+					}
+					if (jcbAlgoritmo.getSelectedItem().toString().equals("Satisfação de restrições")) {
+						Resultado r = Percurso.satisfacaoDeRestricoes(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade());
+						jpDraw.setCaminho(r.getCaminho());
+						jpDraw.setVisitados(r.getVisitados());
 					}
 					if (!jcbAlgoritmo.getSelectedItem().toString().equals("Selecione")) {
 						if (jpDraw.getCaminho() == null) {
@@ -712,10 +730,14 @@ public class Main extends javax.swing.JFrame {
 						jpDraw.setCaminho(Percurso.dijkstra(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade()));
 					}
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Bidirecional")) {
-						jpDraw.setCaminho(Percurso.buscaBidirecional(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade()));
+						Resultado r = Percurso.buscaBidirecional(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade());
+						jpDraw.setCaminho(r.getCaminho());
+						jpDraw.setVisitados(r.getVisitados());
 					}
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Amplitude")) {
-						jpDraw.setCaminho(Percurso.buscaAmplitude(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade()));
+						Resultado r = Percurso.buscaAmplitude(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade());
+						jpDraw.setCaminho(r.getCaminho());
+						jpDraw.setVisitados(r.getVisitados());
 					}
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Amplitude com restrições")) {
 						int mov = 0;
@@ -730,10 +752,14 @@ public class Main extends javax.swing.JFrame {
 								sem = 100;
 							}
 						}
-						jpDraw.setCaminho(Percurso.buscaAmplitude(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade(), mov, sem));
+						Resultado r = Percurso.buscaAmplitude(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade(), mov, sem);
+						jpDraw.setCaminho(r.getCaminho());
+						jpDraw.setVisitados(r.getVisitados());
 					}
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Profundidade")) {
-						jpDraw.setCaminho(Percurso.buscaProfundidade(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade()));
+						Resultado r = Percurso.buscaProfundidade(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade());
+						jpDraw.setCaminho(r.getCaminho());
+						jpDraw.setVisitados(r.getVisitados());
 					}
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Profundidade com restrições")) {
 						int mov = 0;
@@ -748,10 +774,19 @@ public class Main extends javax.swing.JFrame {
 								sem = 100;
 							}
 						}
-						jpDraw.setCaminho(Percurso.buscaProfundidade(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade(), mov, sem));
+						Resultado r = Percurso.buscaProfundidade(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade(), mov, sem);
+						jpDraw.setCaminho(r.getCaminho());
+						jpDraw.setVisitados(r.getVisitados());
 					}
 					if (jcbAlgoritmo.getSelectedItem().toString().equals("Profundidade iterativa")) {
-						jpDraw.setCaminho(Percurso.buscaProfundidadeIterativa(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade()));
+						Resultado r = Percurso.buscaProfundidadeIterativa(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade());
+						jpDraw.setCaminho(r.getCaminho());
+						jpDraw.setVisitados(r.getVisitados());
+					}
+					if (jcbAlgoritmo.getSelectedItem().toString().equals("Satisfação de restrições")) {
+						Resultado r = Percurso.satisfacaoDeRestricoes(jpDraw.getSelected(), jpDraw.getSelected2(), jpDraw.getCidade());
+						jpDraw.setCaminho(r.getCaminho());
+						jpDraw.setVisitados(r.getVisitados());
 					}
 					if (!jcbAlgoritmo.getSelectedItem().toString().equals("Selecione")) {
 						if (jpDraw.getCaminho() == null) {
@@ -759,6 +794,8 @@ public class Main extends javax.swing.JFrame {
 						} else {
 							jpDraw.setStatusText("");
 						}
+					} else {
+						jpDraw.setStatusText("");
 					}
 				}
 			}
@@ -929,6 +966,7 @@ public class Main extends javax.swing.JFrame {
 		jcbSemaforo.setVisible(true);
 		jcbInteresse.setVisible(true);
 		jpDraw.paintComponent(jpDraw.getGraphics());
+		jpDraw.setVisitados(null);
 	}//GEN-LAST:event_jbEditarActionPerformed
 
 	private void jcbAlgoritmoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbAlgoritmoItemStateChanged

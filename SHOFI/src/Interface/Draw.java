@@ -16,6 +16,7 @@ public class Draw extends JPanel {
 	Esquina selected;
 	Esquina selected2;
 	LinkedList<Esquina> caminho;
+	LinkedList<Esquina> visitados;
 	Image bgimage = null;
 	boolean maoDupla = true;
 	boolean movimentada = false;
@@ -143,6 +144,16 @@ public class Draw extends JPanel {
 					}
 				}
 			}
+			if (visitados != null) {
+				g.setColor(Color.black);
+				for (Esquina esquina : visitados) {
+					g.fillRect(esquina.getX() - 3, esquina.getY() - 3, 6, 6);
+				}
+				g.setColor(Color.blue);
+				for (Esquina esquina : visitados) {
+					g.fillRect(esquina.getX() - 2, esquina.getY() - 2, 4, 4);
+				}
+			}
 		}
 		g.setColor(Color.red);
 		g.drawString(statusText, 10, 12);
@@ -176,6 +187,7 @@ public class Draw extends JPanel {
 		setSelected2(null);
 		setCaminho(null);
 		this.paintComponent(this.getGraphics());
+		visitados = null;
 	}
 
 	//permite arastar um ponto da lista para modificar sua posicao
@@ -240,6 +252,14 @@ public class Draw extends JPanel {
 
 	public void setCaminho(LinkedList<Esquina> caminho) {
 		this.caminho = caminho;
+	}
+
+	public LinkedList<Esquina> getVisitados() {
+		return visitados;
+	}
+
+	public void setVisitados(LinkedList<Esquina> visitados) {
+		this.visitados = visitados;
 	}
 
 	public boolean isSomenteInteresse() {
