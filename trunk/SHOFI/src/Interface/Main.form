@@ -187,7 +187,7 @@
         <Component class="javax.swing.JComboBox" name="jcbAlgoritmo">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="10">
+              <StringArray count="11">
                 <StringItem index="0" value="Selecione"/>
                 <StringItem index="1" value="A*"/>
                 <StringItem index="2" value="A* com restri&#xe7;&#xf5;es"/>
@@ -198,6 +198,7 @@
                 <StringItem index="7" value="Profundidade iterativa"/>
                 <StringItem index="8" value="Bidirecional"/>
                 <StringItem index="9" value="Dijkstra"/>
+                <StringItem index="10" value="Satisfa&#xe7;&#xe3;o de restri&#xe7;&#xf5;es"/>
               </StringArray>
             </Property>
           </Properties>

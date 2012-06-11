@@ -11,12 +11,13 @@ import java.util.LinkedList;
  */
 public class Percurso {
 
-	public static LinkedList<Esquina> buscaAmplitude(Esquina origem, Esquina destino, Cidade cidade) {
-		LinkedList<Esquina> caminho;
+	public static Resultado buscaAmplitude(Esquina origem, Esquina destino, Cidade cidade) {
+		LinkedList<Esquina> caminho = new LinkedList<>();
+		LinkedList<Esquina> visitados = new LinkedList<>();
+		visitados.add(origem);
 		if (origem == destino) {
-			caminho = new LinkedList<>();
 			caminho.add(origem);
-			return caminho;
+			return new Resultado(caminho, visitados);
 		}
 		Tabela[] table = new Tabela[cidade.getEsquinas().size()];
 		LinkedList<Esquina> expansao = new LinkedList();
@@ -35,6 +36,7 @@ public class Percurso {
 		while (!acaba) {
 			if (expansao.size() > 0) {
 				temp = expansao.getFirst();
+				visitados.add(temp);
 				expansao.removeFirst();
 				for (Rua rua : temp.getRuas()) {
 					if (rua.getDestino() == destino) {
@@ -60,7 +62,7 @@ public class Percurso {
 		caminho.add(destino);
 		if (table[idAtual].getCaminho() == null) {
 			System.out.println("Nao existe caminho");
-			return null;
+			return new Resultado(null, visitados);
 		}
 		while (table[idAtual].getCaminho() != null) {
 			temp = table[idAtual].getCaminho();
@@ -68,11 +70,11 @@ public class Percurso {
 			idAtual = cidade.getEsquinas().indexOf(temp);
 		}
 		caminho.add(origem);
-		return caminho;
+		return new Resultado(caminho, visitados);
 	}
 
-	//percurso em largura, usando fila//TODO
-	public static LinkedList<Esquina> buscaAmplitude(Esquina origem, Esquina destino, Cidade cidade, int movimentada, int semaforo) {
+	//percurso em largura, usando fila/
+	public static Resultado buscaAmplitude(Esquina origem, Esquina destino, Cidade cidade, int movimentada, int semaforo) {
 		boolean evitarMovimentada = false;
 		if (semaforo == 100) {
 			cidade.setSemaforoVisited();
@@ -80,11 +82,12 @@ public class Percurso {
 		if (movimentada == 100) {
 			evitarMovimentada = true;
 		}
-		LinkedList<Esquina> caminho;
+		LinkedList<Esquina> caminho = new LinkedList<>();
+		LinkedList<Esquina> visitados = new LinkedList<>();
+		visitados.add(origem);
 		if (origem == destino) {
-			caminho = new LinkedList<>();
 			caminho.add(origem);
-			return caminho;
+			return new Resultado(caminho, visitados);
 		}
 		Tabela[] table = new Tabela[cidade.getEsquinas().size()];
 		LinkedList<Esquina> expansao = new LinkedList();
@@ -103,6 +106,7 @@ public class Percurso {
 		while (!acaba) {
 			if (expansao.size() > 0) {
 				temp = expansao.getFirst();
+				visitados.add(temp);
 				expansao.removeFirst();
 				for (Rua rua : temp.getRuas()) {
 					if (rua.getDestino() == destino) {
@@ -132,7 +136,7 @@ public class Percurso {
 		caminho.add(destino);
 		if (table[idAtual].getCaminho() == null) {
 			System.out.println("Nao existe caminho");
-			return null;
+			return new Resultado(null, visitados);
 		}
 		while (table[idAtual].getCaminho() != null) {
 			temp = table[idAtual].getCaminho();
@@ -140,15 +144,85 @@ public class Percurso {
 			idAtual = cidade.getEsquinas().indexOf(temp);
 		}
 		caminho.add(origem);
-		return caminho;
+		return new Resultado(caminho, visitados);
 	}
 
-	public static LinkedList<Esquina> buscaProfundidade(Esquina origem, Esquina destino, Cidade cidade) {
-		LinkedList<Esquina> caminho;
+	public static Resultado satisfacaoDeRestricoes(Esquina origem, Esquina destino, Cidade cidade) {
+		boolean evitarMovimentada = false;
+		cidade.setSemaforoVisited();
+		evitarMovimentada = true;
+		LinkedList<Esquina> caminho = new LinkedList<>();
+		LinkedList<Esquina> visitados = new LinkedList<>();
+		visitados.add(origem);
 		if (origem == destino) {
-			caminho = new LinkedList<>();
 			caminho.add(origem);
-			return caminho;
+			return new Resultado(caminho, visitados);
+		}
+		Tabela[] table = new Tabela[cidade.getEsquinas().size()];
+		LinkedList<Esquina> expansao = new LinkedList();
+		//aloca lista de vertices na tabela hash
+		for (int i = 0; i < table.length; i++) {
+			table[i] = new Tabela(cidade.getEsquinas().get(i));
+		}
+		int idAtual;
+		int idDestino;
+		Esquina temp;
+		boolean acaba = false;
+
+		origem.setVisitado(true);
+		expansao.add(origem);
+
+		while (!acaba) {
+			if (expansao.size() > 0) {
+				temp = expansao.getFirst();
+				visitados.add(temp);
+				expansao.removeFirst();
+				for (Rua rua : temp.getRuas()) {
+					if (rua.getDestino() == destino) {
+						if (!(evitarMovimentada && rua.isMovimentada())) {
+							idDestino = cidade.getEsquinas().indexOf(rua.getDestino());
+							table[idDestino].setCaminho(temp);
+							acaba = true;
+							break;
+						}
+					}
+					if (!rua.getDestino().isVisitado()) {
+						if (!(evitarMovimentada && rua.isMovimentada())) {
+							idDestino = cidade.getEsquinas().indexOf(rua.getDestino());
+							table[idDestino].setCaminho(temp);
+							expansao.add(rua.getDestino());
+							rua.getDestino().setVisitado(true);
+						}
+					}
+				}
+			} else {
+				acaba = true;
+			}
+		}
+		cidade.setEsquinasNotVisited();
+		caminho = new LinkedList<>();
+		idAtual = cidade.getEsquinas().indexOf(destino);
+		caminho.add(destino);
+		if (table[idAtual].getCaminho() == null) {
+			System.out.println("Nao existe caminho");
+			return new Resultado(null, visitados);
+		}
+		while (table[idAtual].getCaminho() != null) {
+			temp = table[idAtual].getCaminho();
+			caminho.add(temp);
+			idAtual = cidade.getEsquinas().indexOf(temp);
+		}
+		caminho.add(origem);
+		return new Resultado(caminho, visitados);
+	}
+
+	public static Resultado buscaProfundidade(Esquina origem, Esquina destino, Cidade cidade) {
+		LinkedList<Esquina> caminho = new LinkedList<>();
+		LinkedList<Esquina> visitados = new LinkedList<>();
+		visitados.add(origem);
+		if (origem == destino) {
+			caminho.add(origem);
+			return new Resultado(caminho, visitados);
 		}
 		Tabela[] table = new Tabela[cidade.getEsquinas().size()];
 		LinkedList<Esquina> expansao = new LinkedList();
@@ -165,6 +239,7 @@ public class Percurso {
 		while (!acaba) {
 			if (expansao.size() > 0) {
 				temp = expansao.getFirst();
+				visitados.add(temp);
 				expansao.removeFirst();
 				for (Rua rua : temp.getRuas()) {
 					if (rua.getDestino() == destino) {
@@ -189,7 +264,7 @@ public class Percurso {
 		caminho.add(destino);
 		if (table[id].getCaminho() == null) {
 			System.out.println("Nao existe caminho");
-			return null;
+			return new Resultado(null, visitados);
 		}
 		while (table[id].getCaminho() != null) {
 			temp = table[id].getCaminho();
@@ -197,10 +272,10 @@ public class Percurso {
 			id = cidade.getEsquinas().indexOf(temp);
 		}
 		caminho.add(origem);
-		return caminho;
+		return new Resultado(caminho, visitados);
 	}
 
-	public static LinkedList<Esquina> buscaProfundidade(Esquina origem, Esquina destino, Cidade cidade, int movimentada, int semaforo) {
+	public static Resultado buscaProfundidade(Esquina origem, Esquina destino, Cidade cidade, int movimentada, int semaforo) {
 		boolean evitarMovimentada = false;
 		if (semaforo > 0) {
 			cidade.setSemaforoVisited();
@@ -208,11 +283,12 @@ public class Percurso {
 		if (movimentada == 100) {
 			evitarMovimentada = true;
 		}
-		LinkedList<Esquina> caminho;
+		LinkedList<Esquina> caminho = new LinkedList<>();
+		LinkedList<Esquina> visitados = new LinkedList<>();
+		visitados.add(origem);
 		if (origem == destino) {
-			caminho = new LinkedList<>();
 			caminho.add(origem);
-			return caminho;
+			return new Resultado(caminho, visitados);
 		}
 		Tabela[] table = new Tabela[cidade.getEsquinas().size()];
 		LinkedList<Esquina> expansao = new LinkedList();
@@ -257,7 +333,7 @@ public class Percurso {
 		caminho.add(destino);
 		if (table[id].getCaminho() == null) {
 			System.out.println("Nao existe caminho");
-			return null;
+			return new Resultado(null, visitados);
 		}
 		while (table[id].getCaminho() != null) {
 			temp = table[id].getCaminho();
@@ -265,15 +341,16 @@ public class Percurso {
 			id = cidade.getEsquinas().indexOf(temp);
 		}
 		caminho.add(origem);
-		return caminho;
+		return new Resultado(caminho, visitados);
 	}
 
-	public static LinkedList<Esquina> buscaProfundidadeIterativa(Esquina origem, Esquina destino, Cidade cidade) {
-		LinkedList<Esquina> caminho;
+	public static Resultado buscaProfundidadeIterativa(Esquina origem, Esquina destino, Cidade cidade) {
+		LinkedList<Esquina> caminho = new LinkedList<>();
+		LinkedList<Esquina> visitados = new LinkedList<>();
+		visitados.add(origem);
 		if (origem == destino) {
-			caminho = new LinkedList<>();
 			caminho.add(origem);
-			return caminho;
+			return new Resultado(caminho, caminho);
 		}
 		Tabela[] table = new Tabela[cidade.getEsquinas().size()];
 		int limite = 1;
@@ -302,6 +379,7 @@ public class Percurso {
 				}
 				if (expansao.get(atual).size() != 0) {
 					temp = expansao.get(atual).removeFirst();
+					visitados.add(temp);
 					temp.setVisitado(true);
 					if (temp == destino) {
 						acaba = true;
@@ -340,7 +418,7 @@ public class Percurso {
 		caminho.add(destino);
 		if (table[id].getCaminho() == null) {
 			System.out.println("Nao existe caminho");
-			return null;
+			return new Resultado(null, visitados);
 		}
 		while (table[id].getCaminho() != null) {
 			temp = table[id].getCaminho();
@@ -348,7 +426,7 @@ public class Percurso {
 			id = cidade.getEsquinas().indexOf(temp);
 		}
 		caminho.add(origem);
-		return caminho;
+		return new Resultado(caminho, visitados);
 	}
 
 	public static LinkedList<Esquina> dijkstra(Esquina origem, Esquina destino, Cidade cidade) {
@@ -427,17 +505,20 @@ public class Percurso {
 		return caminho;
 	}
 
-	public static LinkedList<Esquina> buscaBidirecional(Esquina origem, Esquina destino, Cidade cidade) {
+	public static Resultado buscaBidirecional(Esquina origem, Esquina destino, Cidade cidade) {
 		LinkedList<Esquina> caminho = new LinkedList<>();
+		LinkedList<Esquina> visitados = new LinkedList<>();
+		visitados.add(origem);
 		if (origem == destino) {
 			caminho.add(origem);
-			return caminho;
+			return new Resultado(caminho, visitados);
 		}
 		for (Rua rua : origem.getRuas()) {
 			if (rua.getDestino() == destino) {
 				caminho.add(destino);
+				visitados.add(destino);
 				caminho.add(origem);
-				return caminho;
+				return new Resultado(caminho, visitados);
 			}
 		}
 		Tabela[] tableOrigem = new Tabela[cidade.getEsquinas().size()];
@@ -469,6 +550,7 @@ public class Percurso {
 			//expande de traz pra frente
 			if (expansaoDestino.size() > 0) {
 				esquinaDestino = expansaoDestino.getFirst();
+				visitados.add(esquinaDestino);
 				visitadosDestino.add(esquinaDestino);
 				expansaoDestino.removeFirst();
 				//esquinas que vao para destino
@@ -504,6 +586,7 @@ public class Percurso {
 			//expande de frente pra traz
 			if (expansaoOrigem.size() > 0) {
 				esquinaOrigem = expansaoOrigem.getFirst();
+				visitados.add(esquinaOrigem);
 				visitadosOrigem.add(esquinaOrigem);
 				expansaoOrigem.removeFirst();
 
@@ -539,7 +622,7 @@ public class Percurso {
 		int id = cidade.getEsquinas().indexOf(intercessao);
 		if (intercessao == null) {
 			System.out.println("Nao existe caminho (intercessao == null)");
-			return null;
+			return new Resultado(null, visitados);
 		}
 		caminho.add(intercessao);
 		if (intercessao != destino) {
@@ -572,7 +655,7 @@ public class Percurso {
 			}
 			caminho.add(origem);
 		}
-		return caminho;
+		return new Resultado(caminho, visitados);
 	}
 
 	public static LinkedList<Esquina> aEstrela(Esquina origem, Esquina destino, Cidade cidade) {
