@@ -1,0 +1,1 @@
+Encontrador de menor caminho da loucura.
